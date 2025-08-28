@@ -1,6 +1,16 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+// استيراد الصور بشكل صحيح
+import sbcLogo from '../../assets/sbc.webp';
+import appStoreBadge from '../../assets/app-store-badge.png';
+import googlePlayBadge from '../../assets/google-play-badge.png';
+import logo from '../../assets/logo.png';
+import visaLogo from '../../assets/Visa.png';
+import mastercardLogo from '../../assets/mastercard.png';
+import applePayLogo from '../../assets/apple-pay.png';
+import madaLogo from '../../assets/Mada.png';
+
 const Footer = () => {
   return (
     <footer className="bg-gradient-to-br from-gray-600 via-gray-700 to-gray-800 text-white shadow-2xl" dir="rtl">
@@ -11,7 +21,7 @@ const Footer = () => {
               <Link className="group" to="/">
                 <div className="relative">
                   <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-xl lg:rounded-2xl bg-gradient-to-br from-white to-gray-100 flex items-center justify-center border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-300 group-hover:scale-105">
-                    <img alt="PayPass Logo" className="w-7 h-7 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain" src="/public/assets/logo.png" />
+                    <img alt="PayPass Logo" className="w-7 h-7 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain" src={logo} />
                   </div>
                   <div className="absolute -top-1 -right-1 lg:-top-1.5 lg:-right-1.5 w-4 h-4 lg:w-6 lg:h-6 bg-gray-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone w-2 h-2 lg:w-3 lg:h-3 text-white" aria-hidden="true">
@@ -114,7 +124,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-10">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-6 lg:gap-8">
             <div className="flex items-center gap-3 lg:gap-4 order-2 lg:order-1">
-              <img alt="المركز السعودي للأعمال" className="h-10 lg:h-12 xl:h-16 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity" src="/src/assets/sbc.webp" />
+              <img alt="المركز السعودي للأعمال" className="h-10 lg:h-12 xl:h-16 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity" src={sbcLogo} />
               <div className="text-gray-300 text-sm lg:text-base text-center">منصة موثقة من قبل<br />المركز السعودي للأعمال</div>
             </div>
             <div className="text-center flex-1 order-1 lg:order-2">
@@ -122,17 +132,17 @@ const Footer = () => {
               <p className="text-gray-300 text-sm lg:text-base mb-4 lg:mb-6 max-w-2xl mx-auto">استمتع بخصومات حصرية وتتبع غسيل سيارتك بسهولة</p>
               <div className="flex justify-center items-center gap-2 lg:gap-3 flex-wrap">
                 <a href="#" className="group block hover:scale-105 transition-all duration-300">
-                  <img alt="App Store" className="h-11 lg:h-10 xl:h-12 w-auto object-contain filter drop-shadow-lg group-hover:drop-shadow-xl" src="/src/assets/app-store-badge.png" />
+                  <img alt="App Store" className="h-11 lg:h-10 xl:h-12 w-auto object-contain filter drop-shadow-lg group-hover:drop-shadow-xl" src={appStoreBadge} />
                 </a>
                 <a href="#" className="group block hover:scale-105 transition-all duration-300">
-                  <img alt="Google Play" className="h-10 lg:h-10 xl:h-12 w-auto object-contain filter drop-shadow-lg group-hover:drop-shadow-xl" src="/src/assets/google-play-badge.png" />
+                  <img alt="Google Play" className="h-10 lg:h-10 xl:h-12 w-auto object-contain filter drop-shadow-lg group-hover:drop-shadow-xl" src={googlePlayBadge} />
                 </a>
               </div>
             </div>
             <Link className="group order-3" to="/">
               <div className="flex items-center gap-2 lg:gap-3">
                 <div className="w-10 h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14 bg-gradient-to-br from-white to-gray-100 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-xl border border-white/40 group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300">
-                  <img alt="PayPass Logo" className="w-6 h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 object-contain" src="/src/assets/logo.png" />
+                  <img alt="PayPass Logo" className="w-6 h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 object-contain" src={logo} />
                 </div>
                 <div className="hidden lg:block">
                   <h4 className="text-white font-bold text-base lg:text-lg group-hover:text-gray-200 transition-colors">PayPass</h4>
@@ -158,16 +168,16 @@ const Footer = () => {
             </div>
             <div className="flex items-center gap-1 lg:gap-2">
               <div className="bg-white rounded-md p-1 lg:p-1.5 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
-                <img alt="Visa" className="h-5 lg:h-6 w-auto object-contain" src="/src/assets/Visa.png" />
+                <img alt="Visa" className="h-5 lg:h-6 w-auto object-contain" src={visaLogo} />
               </div>
               <div className="bg-white rounded-md p-1 lg:p-1.5 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
-                <img alt="Mastercard" className="h-5 lg:h-6 w-auto object-contain" src="/src/assets/mastercard.png" />
+                <img alt="Mastercard" className="h-5 lg:h-6 w-auto object-contain" src={mastercardLogo} />
               </div>
               <div className="bg-white rounded-md p-1 lg:p-1.5 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
-                <img alt="Apple Pay" className="h-5 lg:h-6 w-auto object-contain" src="/src/assets/apple-pay.png" />
+                <img alt="Apple Pay" className="h-5 lg:h-6 w-auto object-contain" src={applePayLogo} />
               </div>
               <div className="bg-white rounded-md p-1 lg:p-1.5 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
-                <img alt="Mada" className="h-5 lg:h-6 w-auto object-contain" src="/src/assets/Mada.png" />
+                <img alt="Mada" className="h-5 lg:h-6 w-auto object-contain" src={madaLogo} />
               </div>
             </div>
           </div>

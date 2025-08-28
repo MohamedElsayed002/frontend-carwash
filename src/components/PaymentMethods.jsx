@@ -1,10 +1,67 @@
 import React, { useState } from 'react';
-import { FaCreditCard, FaApple, FaLock, FaShieldAlt, FaCheckCircle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import { motion } from 'framer-motion';
-import applePayIcon from '../assets/apple-pay.png';
-import visaIcon from '../assets/Visa.png';
-import madaIcon from '../assets/Mada.png';
-import mastercardIcon from '../assets/mastercard.png';
+import {
+  CreditCard,
+  Shield,
+  CheckCircle,
+  AlertCircle,
+  ArrowRight,
+  Lock,
+  Eye,
+  EyeOff,
+  Calendar,
+  User,
+  Building,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Star,
+  Car,
+  Users,
+  Timer,
+  Check,
+  Award,
+  Zap,
+  Crown,
+  Diamond,
+  Sparkles,
+  Rocket,
+  Lightbulb,
+  Globe,
+  Smartphone,
+  Download,
+  QrCode,
+  Clock4,
+  MapPinIcon,
+  PhoneIcon,
+  StarIcon,
+  CarIcon,
+  UsersIcon,
+  CheckCircleIcon,
+  ArrowRightIcon,
+  TimerIcon,
+  CheckIcon,
+  Clock4Icon,
+  ShieldIcon,
+  ZapIcon,
+  AwardIcon,
+  GlobeIcon,
+  SmartphoneIcon,
+  DownloadIcon,
+  QrCodeIcon,
+  CrownIcon,
+  DiamondIcon,
+  SparklesIcon,
+  RocketIcon,
+  LightbulbIcon
+} from 'lucide-react';
+
+// استيراد الصور بشكل صحيح
+import applePayLogo from '../assets/apple-pay.png';
+import visaLogo from '../assets/Visa.png';
+import mastercardLogo from '../assets/mastercard.png';
+import madaLogo from '../assets/Mada.png';
 
 const PaymentMethods = ({ onPaymentMethodChange, selectedMethod, onPaymentDataChange }) => {
   const [showCardForm, setShowCardForm] = useState(false);
@@ -20,7 +77,7 @@ const PaymentMethods = ({ onPaymentMethodChange, selectedMethod, onPaymentDataCh
     {
       id: 'hyperpay',
       name: 'HyperPay الآمن',
-      icon: FaShieldAlt,
+      icon: Shield,
       description: 'فيزا، ماستركارد، مدى - دفع آمن ومشفر',
       color: 'from-green-600 to-green-800',
       bgColor: 'from-green-50 to-green-100',
@@ -29,7 +86,7 @@ const PaymentMethods = ({ onPaymentMethodChange, selectedMethod, onPaymentDataCh
     {
       id: 'apple',
       name: 'Apple Pay',
-      icon: applePayIcon,
+      icon: applePayLogo,
       description: 'دفع سريع وآمن',
       color: 'from-gray-800 to-gray-900',
       bgColor: 'from-gray-50 to-gray-100',
@@ -38,7 +95,7 @@ const PaymentMethods = ({ onPaymentMethodChange, selectedMethod, onPaymentDataCh
     {
       id: 'credit',
       name: 'بطاقة ائتمان',
-      icon: FaCreditCard,
+      icon: CreditCard,
       description: 'فيزا، ماستركارد، مدى',
       color: 'from-green-500 to-green-600',
       bgColor: 'from-green-50 to-green-100',
@@ -136,7 +193,7 @@ const PaymentMethods = ({ onPaymentMethodChange, selectedMethod, onPaymentDataCh
               <div className="payment-option-content">
                 <div className={`payment-option-icon ${method.isApplePay ? 'apple-pay-icon-container' : 'credit-card-icon-container'}`}>
                   {method.isApplePay ? (
-                    <img src="/src/assets/apple-pay.png" alt="Apple Pay" className="apple-pay-icon" />
+                    <img src={applePayLogo} alt="Apple Pay" className="apple-pay-icon" />
                   ) : (
                     <svg className="credit-card-icon" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" />
@@ -167,15 +224,15 @@ const PaymentMethods = ({ onPaymentMethodChange, selectedMethod, onPaymentDataCh
           </div>
           <div className="card-icons-grid">
             <div className="card-icon-item">
-              <img src="/src/assets/Visa.png" alt="Visa" className="card-icon-image" />
+              <img src={visaLogo} alt="Visa" className="card-icon-image" />
               <span className="card-icon-label">Visa</span>
             </div>
             <div className="card-icon-item">
-              <img src="/src/assets/mastercard.png" alt="Mastercard" className="card-icon-image" />
+              <img src={mastercardLogo} alt="Mastercard" className="card-icon-image" />
               <span className="card-icon-label">Mastercard</span>
             </div>
             <div className="card-icon-item">
-              <img src="/src/assets/Mada.png" alt="Mada" className="card-icon-image" />
+              <img src={madaLogo} alt="Mada" className="card-icon-image" />
               <span className="card-icon-label">مدى</span>
             </div>
           </div>
@@ -192,7 +249,7 @@ const PaymentMethods = ({ onPaymentMethodChange, selectedMethod, onPaymentDataCh
           className="bg-white border-2 border-green-200 rounded-2xl p-6 shadow-lg"
         >
           <div className="flex items-center gap-3 mb-6">
-            <FaCreditCard className="w-6 h-6 text-green-500" />
+            <CreditCard className="w-6 h-6 text-green-500" />
             <h3 className="text-xl font-bold text-gray-800">معلومات البطاقة</h3>
           </div>
 
@@ -215,9 +272,9 @@ const PaymentMethods = ({ onPaymentMethodChange, selectedMethod, onPaymentDataCh
                   <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
                     <img
                       src={
-                        cardType === 'visa' ? visaIcon :
-                          cardType === 'mastercard' ? mastercardIcon :
-                            cardType === 'mada' ? madaIcon : null
+                        cardType === 'visa' ? visaLogo :
+                          cardType === 'mastercard' ? mastercardLogo :
+                            cardType === 'mada' ? madaLogo : null
                       }
                       alt={cardType}
                       className="h-6"
@@ -276,7 +333,7 @@ const PaymentMethods = ({ onPaymentMethodChange, selectedMethod, onPaymentDataCh
                     onClick={() => setCardData(prev => ({ ...prev, showCvv: !prev.showCvv }))}
                     className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
                   >
-                    {cardData.showCvv ? <FaEyeSlash className="w-4 h-4" /> : <FaEye className="w-4 h-4" />}
+                    {cardData.showCvv ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
@@ -286,20 +343,20 @@ const PaymentMethods = ({ onPaymentMethodChange, selectedMethod, onPaymentDataCh
           {/* معلومات الأمان */}
           <div className="bg-green-50 border border-green-200 rounded-xl p-4 mt-6">
             <div className="flex items-center gap-3 mb-2">
-              <FaShieldAlt className="w-5 h-5 text-green-600" />
+              <Shield className="w-5 h-5 text-green-600" />
               <h4 className="font-bold text-green-800">دفع آمن ومحمي</h4>
             </div>
             <ul className="space-y-1 text-sm text-green-700">
               <li className="flex items-center gap-2">
-                <FaCheckCircle className="w-3 h-3" />
+                <CheckCircle className="w-3 h-3" />
                 <span>تشفير SSL 256-bit</span>
               </li>
               <li className="flex items-center gap-2">
-                <FaCheckCircle className="w-3 h-3" />
+                <CheckCircle className="w-3 h-3" />
                 <span>حماية من الاحتيال</span>
               </li>
               <li className="flex items-center gap-2">
-                <FaCheckCircle className="w-3 h-3" />
+                <CheckCircle className="w-3 h-3" />
                 <span>ضمان استرداد الأموال</span>
               </li>
             </ul>
@@ -316,7 +373,7 @@ const PaymentMethods = ({ onPaymentMethodChange, selectedMethod, onPaymentDataCh
           onClick={handleApplePay}
           className="w-full bg-black text-white py-4 px-6 rounded-2xl font-bold hover:bg-gray-800 transition-all duration-300 flex items-center justify-center gap-3"
         >
-          <img src={applePayIcon} alt="Apple Pay" className="w-8 h-8" />
+          <img src={applePayLogo} alt="Apple Pay" className="w-8 h-8" />
           <span>استخدم Apple Pay</span>
         </motion.button>
       )}

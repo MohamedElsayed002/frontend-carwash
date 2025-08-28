@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaMapMarkerAlt, FaDirections, FaArrowRight, FaGift } from 'react-icons/fa';
-import { 
-  CheckCircle, 
-  Car, 
-  Clock, 
-  Star, 
-  ArrowRight, 
-  Home, 
+import {
+  CheckCircle,
+  Car,
+  Clock,
+  Star,
+  ArrowRight,
+  Home,
   Receipt,
   Heart,
   CreditCard,
@@ -21,6 +21,9 @@ import {
 } from 'lucide-react';
 import UnifiedButton from '../components/common/UnifiedButton';
 import UnifiedIcon from '../components/common/UnifiedIcon';
+
+// استيراد الصور بشكل صحيح
+import applePayLogo from '../assets/apple-pay.png';
 
 const WashingCompleted = () => {
   const navigate = useNavigate();
@@ -60,13 +63,13 @@ const WashingCompleted = () => {
       startDate: qrCodeData.startDate || new Date().toISOString(),
       expiryDate: qrCodeData.expiryDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
     };
-    
+
     setCustomerInfo(customerInfoData);
-    
+
     if (orderDetails) {
       setOrderDetails(orderDetails);
     }
-    
+
     if (packageDetails) {
       setPackageDetails(packageDetails);
     }
@@ -87,7 +90,7 @@ const WashingCompleted = () => {
       packageName: customerInfo.packageName,
       carType: customerInfo.carType
     };
-    
+
     localStorage.setItem('branchRating', JSON.stringify(ratingData));
     setShowRating(false);
     setShowMotivation(true);
@@ -113,10 +116,10 @@ const WashingCompleted = () => {
     };
 
     localStorage.setItem('motivationData', JSON.stringify(motivationData));
-    
+
     // Show success message
     alert('تم إرسال المكافأة بنجاح! شكراً لك');
-    
+
     // Navigate to home
     navigate('/');
   };
@@ -161,7 +164,7 @@ const WashingCompleted = () => {
   ];
 
   const paymentMethods = [
-    { id: 'apple', name: 'Apple Pay', icon: () => <img src="/src/assets/apple-pay.png" alt="Apple Pay" className="w-6 h-6" />, color: 'from-green-500 to-emerald-600' },
+    { id: 'apple', name: 'Apple Pay', icon: () => <img src={applePayLogo} alt="Apple Pay" className="w-6 h-6" />, color: 'from-green-500 to-emerald-600' },
     { id: 'credit', name: 'بطاقة ائتمان', icon: CreditCard, color: 'from-green-500 to-green-600' }
   ];
 
@@ -217,7 +220,7 @@ const WashingCompleted = () => {
         </motion.div>
 
         {/* Success Header */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
@@ -230,13 +233,13 @@ const WashingCompleted = () => {
           >
             <CheckCircle className="w-10 h-10 text-white" />
           </motion.div>
-          
+
           <h1 className="text-3xl font-bold text-gray-800 mb-2">تم إكمال الغسيل!</h1>
           <p className="text-gray-600">سيارتك جاهزة للاستلام</p>
         </motion.div>
 
         {/* Completion Time */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
@@ -252,25 +255,25 @@ const WashingCompleted = () => {
         </motion.div>
 
         {/* Order Summary */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
           className="bg-white rounded-2xl shadow-lg border border-gray-100 p-6 mb-6"
         >
           <h3 className="text-lg font-semibold text-green-700 mb-4 text-center">ملخص الطلب</h3>
-          
+
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
               <span className="text-gray-600">الاسم:</span>
               <span className="font-medium">{customerInfo.name}</span>
             </div>
-            
+
             <div className="flex justify-between">
               <span className="text-gray-600">رقم الهاتف:</span>
               <span className="font-medium">{customerInfo.phone}</span>
             </div>
-            
+
             <div className="flex justify-between">
               <span className="text-gray-600">نوع السيارة:</span>
               <div className="flex items-center">
@@ -278,32 +281,32 @@ const WashingCompleted = () => {
                 <span className="font-medium">{customerInfo.carType}</span>
               </div>
             </div>
-            
+
             <div className="flex justify-between">
               <span className="text-gray-600">الباقة:</span>
               <span className="font-medium">{customerInfo.packageName}</span>
             </div>
-            
+
             <div className="flex justify-between">
               <span className="text-gray-600">الفرع:</span>
               <span className="font-medium">{customerInfo.branchName}</span>
             </div>
-            
+
             <div className="flex justify-between">
               <span className="text-gray-600">رقم العملية:</span>
               <span className="font-mono font-medium">{customerInfo.operationId}</span>
             </div>
-            
+
             <div className="flex justify-between">
               <span className="text-gray-600">السعر:</span>
               <span className="font-bold text-green-600">{customerInfo.price} ريال</span>
             </div>
-            
+
             <div className="flex justify-between">
               <span className="text-gray-600">الغسلات المتبقية:</span>
               <span className="font-bold text-blue-600">{customerInfo.remainingWashes} من {customerInfo.totalWashes}</span>
             </div>
-            
+
             <div className="flex justify-between">
               <span className="text-gray-600">تاريخ الانتهاء:</span>
               <span className="font-medium">{new Date(customerInfo.expiryDate).toLocaleDateString('ar-SA')}</span>
@@ -314,7 +317,7 @@ const WashingCompleted = () => {
         {/* Branch Rating */}
         <AnimatePresence>
           {showRating && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -322,26 +325,25 @@ const WashingCompleted = () => {
               className="bg-white rounded-2xl shadow-lg p-6 mb-6"
             >
               <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">تقييم الفرع</h3>
-              
+
               <div className="text-center mb-4">
                 <p className="text-gray-600 mb-3">كيف كانت تجربتك في {customerInfo.branchName}؟</p>
-                
+
                 <div className="flex justify-center space-x-2 space-x-reverse">
                   {[1, 2, 3, 4, 5].map((star) => (
                     <button
                       key={star}
                       onClick={() => setBranchRating(star)}
-                      className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 ${
-                        star <= branchRating
+                      className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-200 ${star <= branchRating
                           ? 'bg-green-500 text-white scale-110'
                           : 'bg-gray-200 text-gray-400 hover:bg-gray-300'
-                      }`}
+                        }`}
                     >
                       <Star className="w-6 h-6" fill={star <= branchRating ? 'white' : 'none'} />
                     </button>
                   ))}
                 </div>
-                
+
                 <p className="text-sm text-gray-500 mt-2">
                   {branchRating === 1 && 'سيء جداً'}
                   {branchRating === 2 && 'سيء'}
@@ -350,15 +352,14 @@ const WashingCompleted = () => {
                   {branchRating === 5 && 'ممتاز'}
                 </p>
               </div>
-              
+
               <button
                 onClick={handleRatingSubmit}
                 disabled={branchRating === 0}
-                className={`w-full py-3 px-4 rounded-xl font-medium flex items-center justify-center ${
-                  branchRating === 0
+                className={`w-full py-3 px-4 rounded-xl font-medium flex items-center justify-center ${branchRating === 0
                     ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
                     : 'bg-gradient-to-r from-green-500 to-emerald-500 text-white hover:from-green-600 hover:to-emerald-600'
-                }`}
+                  }`}
               >
                 <ThumbsUp className="w-4 h-4 mr-2" />
                 إرسال التقييم
@@ -370,7 +371,7 @@ const WashingCompleted = () => {
         {/* Employee Motivation */}
         <AnimatePresence>
           {showMotivation && (
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
@@ -378,13 +379,13 @@ const WashingCompleted = () => {
               className="bg-white rounded-2xl shadow-lg p-6 mb-6"
             >
               <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">مكافأة رمزية للموظف</h3>
-              
+
               <div className="text-center mb-4">
                 <div className="flex items-center justify-center mb-3">
                   <Heart className="w-6 h-6 text-red-500 mr-2" />
                   <p className="text-gray-600">أضف مكافأة رمزية للموظف</p>
                 </div>
-                
+
                 <div className="grid grid-cols-3 gap-2 mb-4">
                   {motivationOptions.map((option) => (
                     <button
@@ -393,18 +394,17 @@ const WashingCompleted = () => {
                         setSelectedMotivation(option.amount);
                         setCustomAmount('');
                       }}
-                      className={`p-3 rounded-xl border-2 transition-all duration-200 ${
-                        selectedMotivation === option.amount
+                      className={`p-3 rounded-xl border-2 transition-all duration-200 ${selectedMotivation === option.amount
                           ? 'border-green-500 bg-green-50 text-green-700'
                           : 'border-gray-200 hover:border-gray-300'
-                      }`}
+                        }`}
                     >
                       <div className="text-2xl mb-1">{option.icon}</div>
                       <div className="text-sm font-medium">{option.label}</div>
                     </button>
                   ))}
                 </div>
-                
+
                 <div className="mb-4">
                   <input
                     type="number"
@@ -419,7 +419,7 @@ const WashingCompleted = () => {
                     max="100"
                   />
                 </div>
-                
+
                 <div className="mb-4">
                   <textarea
                     placeholder="رسالة للموظف (اختياري)"
@@ -429,7 +429,7 @@ const WashingCompleted = () => {
                     rows="3"
                   />
                 </div>
-                
+
                 <div className="mb-4">
                   <h4 className="text-sm font-medium text-gray-700 mb-2">طريقة الدفع:</h4>
                   <div className="flex space-x-2 space-x-reverse">
@@ -437,15 +437,14 @@ const WashingCompleted = () => {
                       <button
                         key={method.id}
                         onClick={() => setSelectedPaymentMethod(method.id)}
-                        className={`flex-1 py-3 px-4 rounded-xl border-2 transition-all duration-200 ${
-                          selectedPaymentMethod === method.id
+                        className={`flex-1 py-3 px-4 rounded-xl border-2 transition-all duration-200 ${selectedPaymentMethod === method.id
                             ? 'border-green-500 bg-green-50'
                             : 'border-gray-200 hover:border-gray-300'
-                        }`}
+                          }`}
                       >
                         {method.id === 'apple' ? (
                           <div className="w-8 h-8 apple-pay-container mx-auto mb-2 flex items-center justify-center">
-                            <img src="/src/assets/apple-pay.png" alt="Apple Pay" className="w-5 h-5 apple-pay-icon" />
+                            <img src={applePayLogo} alt="Apple Pay" className="w-5 h-5 apple-pay-icon" />
                           </div>
                         ) : (
                           <method.icon className="w-5 h-5 mx-auto mb-1" />
@@ -456,7 +455,7 @@ const WashingCompleted = () => {
                   </div>
                 </div>
               </div>
-              
+
               <div className="flex space-x-2 space-x-reverse">
                 <UnifiedButton
                   variant="gradient"
@@ -468,7 +467,7 @@ const WashingCompleted = () => {
                 >
                   إرسال المكافأة
                 </UnifiedButton>
-                
+
                 <UnifiedButton
                   variant="secondary"
                   size="medium"
@@ -483,7 +482,7 @@ const WashingCompleted = () => {
         </AnimatePresence>
 
         {/* Action Buttons */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.7 }}
@@ -498,7 +497,7 @@ const WashingCompleted = () => {
           >
             عرض الإيصال
           </UnifiedButton>
-          
+
           <UnifiedButton
             variant="secondary"
             size="medium"
@@ -508,7 +507,7 @@ const WashingCompleted = () => {
           >
             طلب جديد
           </UnifiedButton>
-          
+
           <UnifiedButton
             variant="secondary"
             size="medium"
@@ -518,7 +517,7 @@ const WashingCompleted = () => {
           >
             مكافأة الموظف
           </UnifiedButton>
-          
+
           <UnifiedButton
             variant="secondary"
             size="medium"
@@ -531,7 +530,7 @@ const WashingCompleted = () => {
         </motion.div>
 
         {/* Thank You Message */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1 }}

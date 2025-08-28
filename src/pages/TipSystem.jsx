@@ -1,19 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  Heart, 
-  Star, 
-  Gift, 
-  CreditCard, 
-  Apple,
+import {
+  Heart,
+  Star,
   CheckCircle,
   ArrowRight,
-  MessageCircle,
-  ThumbsUp,
-  Smile,
-  Lock,
-  Shield
+  Clock,
+  User,
+  Shield,
+  Zap,
+  Award,
+  Crown,
+  Diamond,
+  Sparkles,
+  Rocket,
+  Lightbulb,
+  Globe,
+  Smartphone,
+  Download,
+  QrCode,
+  Timer,
+  Check,
+  MapPin,
+  Phone,
+  Mail,
+  Car,
+  Users,
+  Calendar,
+  Clock4,
+  MapPinIcon,
+  PhoneIcon,
+  StarIcon,
+  CarIcon,
+  UsersIcon,
+  CheckCircleIcon,
+  ArrowRightIcon,
+  TimerIcon,
+  CheckIcon,
+  CalendarIcon,
+  Clock4Icon,
+  ShieldIcon,
+  ZapIcon,
+  AwardIcon,
+  CrownIcon,
+  DiamondIcon,
+  SparklesIcon,
+  RocketIcon,
+  LightbulbIcon,
+  GlobeIcon,
+  SmartphoneIcon,
+  DownloadIcon,
+  QrCodeIcon
 } from 'lucide-react';
 import { FaCreditCard, FaApple, FaLock, FaShieldAlt, FaCheckCircle, FaEye, FaEyeSlash } from 'react-icons/fa';
 import UnifiedButton from '../components/common/UnifiedButton';
@@ -23,6 +61,12 @@ import applePayIcon from '../assets/apple-pay.png';
 import visaIcon from '../assets/Visa.png';
 import madaIcon from '../assets/Mada.png';
 import mastercardIcon from '../assets/mastercard.png';
+
+// استيراد الصور بشكل صحيح
+import applePayLogo from '../assets/apple-pay.png';
+import visaLogo from '../assets/Visa.png';
+import mastercardLogo from '../assets/mastercard.png';
+import madaLogo from '../assets/Mada.png';
 
 const TipSystem = () => {
   const navigate = useNavigate();
@@ -142,7 +186,7 @@ const TipSystem = () => {
     setTimeout(() => {
       setIsProcessing(false);
       setShowThankYou(true);
-      
+
       // حفظ بيانات المكافأة
       const tipData = {
         amount: selectedAmount || parseInt(customAmount),
@@ -151,7 +195,7 @@ const TipSystem = () => {
         date: new Date().toISOString(),
         operationId: 'O' + Math.random().toString(36).substr(2, 8).toUpperCase()
       };
-      
+
       localStorage.setItem('tipData', JSON.stringify(tipData));
     }, 2000);
   };
@@ -162,7 +206,7 @@ const TipSystem = () => {
 
   if (showThankYou) {
     return (
-      <PageContainer 
+      <PageContainer
         className="bg-gradient-to-br from-green-50 to-emerald-100 p-4"
         centerContent={true}
       >
@@ -179,12 +223,12 @@ const TipSystem = () => {
           >
             <Heart className="w-10 h-10 text-white" />
           </motion.div>
-          
+
           <h2 className="text-2xl font-bold text-gray-800 mb-4">شكراً لمكافأتك! 🙏</h2>
           <p className="text-gray-600 mb-6">
             فريقنا يقدر دعمك وثقتك بنا. سنواصل تقديم أفضل خدمة لك!
           </p>
-          
+
           <UnifiedButton
             variant="gradient"
             size="large"
@@ -203,7 +247,7 @@ const TipSystem = () => {
     <PageContainer className="bg-gradient-to-br from-green-50 to-emerald-100 p-4">
       <div className="max-w-md mx-auto">
         {/* Header */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center mb-8"
@@ -216,28 +260,28 @@ const TipSystem = () => {
           >
             <Gift className="w-10 h-10 text-white" />
           </motion.div>
-          
+
           <h1 className="text-3xl font-bold text-gray-800 mb-2">حابب تكافئنا؟ 💝</h1>
           <p className="text-gray-600">اختر قيمة المكافأة التي تناسبك</p>
         </motion.div>
 
         {/* Tip Amounts */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3 }}
           className="bg-white rounded-2xl shadow-lg p-6 mb-6"
         >
           <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">قيمة المكافأة</h3>
-          
+
           <div className="grid grid-cols-3 gap-3 mb-4">
             {tipAmounts.map((amount) => (
               <button
                 key={amount}
                 onClick={() => setSelectedAmount(amount)}
                 className={`border-2 rounded-xl py-3 text-center font-bold transition-all duration-300 ${
-                  selectedAmount === amount 
-                    ? 'bg-green-500 text-white border-green-500 shadow-lg transform scale-105' 
+                  selectedAmount === amount
+                    ? 'bg-green-500 text-white border-green-500 shadow-lg transform scale-105'
                     : 'bg-white text-green-700 border-green-300 hover:border-green-500 hover:shadow-md'
                 }`}
               >
@@ -263,14 +307,14 @@ const TipSystem = () => {
         </motion.div>
 
         {/* Payment Methods */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
           className="bg-white rounded-2xl shadow-lg p-6 mb-6"
         >
           <h3 className="text-lg font-semibold text-gray-800 mb-4 text-center">طريقة الدفع</h3>
-          
+
           <div className="space-y-4">
             {paymentMethods.map((method) => (
               <div
@@ -285,7 +329,7 @@ const TipSystem = () => {
                 <div className="flex items-center gap-4">
                   <div className={`w-14 h-14 ${method.isApplePay ? 'apple-pay-container' : `bg-gradient-to-r ${method.color} text-white shadow-md`} rounded-2xl flex items-center justify-center transition-all duration-300 hover:scale-105`}>
                     {method.isApplePay ? (
-                      <img src="/src/assets/apple-pay.png" alt="Apple Pay" className="w-8 h-8 object-contain apple-pay-icon" />
+                      <img src={applePayLogo} alt="Apple Pay" className="w-8 h-8 object-contain apple-pay-icon" />
                     ) : (
                       <method.icon className="w-7 h-7 drop-shadow-sm" />
                     )}
@@ -316,15 +360,15 @@ const TipSystem = () => {
               </div>
                                 <div className="card-icons-container">
                     <div className="card-icon-item">
-                      <img src="/src/assets/Visa.png" alt="Visa" className="card-icon-image" />
+                      <img src={visaLogo} alt="Visa" className="card-icon-image" />
                       <span className="card-icon-label">Visa</span>
                     </div>
                     <div className="card-icon-item">
-                      <img src="/src/assets/mastercard.png" alt="Mastercard" className="card-icon-image" />
+                      <img src={mastercardLogo} alt="Mastercard" className="card-icon-image" />
                       <span className="card-icon-label">Mastercard</span>
                     </div>
                     <div className="card-icon-item">
-                      <img src="/src/assets/Mada.png" alt="Mada" className="card-icon-image" />
+                      <img src={madaLogo} alt="Mada" className="card-icon-image" />
                       <span className="card-icon-label">مدى</span>
                     </div>
                   </div>
@@ -362,12 +406,12 @@ const TipSystem = () => {
                     />
                     {cardType !== 'unknown' && (
                       <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                        <img 
+                        <img
                           src={
-                            cardType === 'visa' ? visaIcon :
-                            cardType === 'mastercard' ? mastercardIcon :
-                            cardType === 'mada' ? madaIcon : null
-                          } 
+                            cardType === 'visa' ? visaLogo :
+                            cardType === 'mastercard' ? mastercardLogo :
+                            cardType === 'mada' ? madaLogo : null
+                          }
                           alt={cardType}
                           className="h-6"
                         />
@@ -472,7 +516,7 @@ const TipSystem = () => {
         </motion.div>
 
         {/* Message */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
@@ -482,7 +526,7 @@ const TipSystem = () => {
             <MessageCircle className="w-5 h-5 text-green-500" />
             رسالة للموظف (اختياري)
           </h3>
-          
+
           <textarea
             value={tipMessage}
             onChange={(e) => setTipMessage(e.target.value)}
@@ -493,7 +537,7 @@ const TipSystem = () => {
         </motion.div>
 
         {/* Actions */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
@@ -509,7 +553,7 @@ const TipSystem = () => {
           >
             {isProcessing ? 'جاري الدفع...' : `أدفع المكافأة ${selectedAmount || customAmount || 0} ريال`}
           </UnifiedButton>
-          
+
           <UnifiedButton
             variant="secondary"
             size="large"
@@ -522,7 +566,7 @@ const TipSystem = () => {
         </motion.div>
 
         {/* Info */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.7 }}

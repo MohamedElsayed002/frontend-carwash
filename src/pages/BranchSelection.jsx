@@ -23,6 +23,14 @@ import {
 import UnifiedButton from '../components/common/UnifiedButton';
 import UnifiedIcon from '../components/common/UnifiedIcon';
 
+// استيراد الصور بشكل صحيح
+import heltonImage from '../assets/helton.png';
+import karltonImage from '../assets/karlton.png';
+import regisImage from '../assets/regis.png';
+import alahliImage from '../assets/alahli.jpeg';
+import alnmaImage from '../assets/alnma.jpeg';
+import codImage from '../assets/cod.jpeg';
+
 const BranchSelection = () => {
   const navigate = useNavigate();
   const [selectedBranch, setSelectedBranch] = useState(null);
@@ -60,7 +68,7 @@ const BranchSelection = () => {
       services: ['غسيل خارجي شامل', 'غسيل داخلي شامل', 'تلميع احترافي', 'معطر فاخر', 'خدمة سريعة'],
       mapUrl: 'https://maps.app.goo.gl/hD3KYnFEgx9pEXBu6?g_st=iw',
       features: ['معدات حديثة', 'خدمة سريعة', 'VIP', 'أسعار منافسة', 'موقف مجاني'],
-      image: '/src/assets/helton.png',
+      image: heltonImage,
       coordinates: { lat: 24.7136, lng: 46.6753 },
       capacity: '15 سيارة/ساعة',
       specialties: ['سيارات فاخرة', 'سيارات عائلية', 'سيارات رياضية']
@@ -80,7 +88,7 @@ const BranchSelection = () => {
       services: ['غسيل خارجي شامل', 'غسيل داخلي شامل', 'تلميع احترافي', 'معطر فاخر', 'خدمة VIP'],
       mapUrl: 'https://maps.app.goo.gl/khhqHgaRFZXqELYTA?g_st=iw',
       features: ['موقع مركزي', 'خدمة سريعة', 'أسعار منافسة', 'خدمة منزلية'],
-      image: '/src/assets/karlton.png',
+      image: karltonImage,
       coordinates: { lat: 24.7136, lng: 46.6753 },
       capacity: '20 سيارة/ساعة',
       specialties: ['سيارات عائلية', 'سيارات تجارية', 'سيارات كلاسيكية']
@@ -100,7 +108,7 @@ const BranchSelection = () => {
       services: ['غسيل خارجي شامل', 'غسيل داخلي شامل', 'تلميع احترافي', 'معطر فاخر', 'تعطير'],
       mapUrl: 'https://maps.app.goo.gl/uB82K6Tj8jsPmXFeA?g_st=iw',
       features: ['موقف مجاني', 'خدمة سريعة', 'أسعار منافسة', 'خدمة عملاء'],
-      image: '/src/assets/regis.png',
+      image: regisImage,
       coordinates: { lat: 24.7136, lng: 46.6753 },
       capacity: '25 سيارة/ساعة',
       specialties: ['سيارات رياضية', 'سيارات فاخرة', 'سيارات عائلية']
@@ -120,7 +128,7 @@ const BranchSelection = () => {
       services: ['غسيل خارجي شامل', 'غسيل داخلي شامل', 'تلميع احترافي', 'معطر فاخر', 'خدمة متميزة'],
       mapUrl: 'https://maps.app.goo.gl/VY5rRk7oLZ2YpSmb7?g_st=iw',
       features: ['موقع هادئ', 'خدمة سريعة', 'أسعار منافسة', 'خدمة VIP'],
-      image: '/src/assets/alahli.jpeg',
+      image: alahliImage,
       coordinates: { lat: 24.7136, lng: 46.6753 },
       capacity: '18 سيارة/ساعة',
       specialties: ['سيارات عائلية', 'سيارات تجارية', 'سيارات كلاسيكية']
@@ -140,7 +148,7 @@ const BranchSelection = () => {
       services: ['غسيل خارجي شامل', 'غسيل داخلي شامل', 'تلميع احترافي', 'معطر فاخر', 'خدمة سريعة'],
       mapUrl: 'https://maps.app.goo.gl/example5',
       features: ['معدات حديثة', 'خدمة سريعة', 'أسعار منافسة', 'موقف مجاني'],
-      image: '/src/assets/alnma.jpeg',
+      image: alnmaImage,
       coordinates: { lat: 24.7136, lng: 46.6753 },
       capacity: '22 سيارة/ساعة',
       specialties: ['سيارات عائلية', 'سيارات تجارية', 'سيارات رياضية']
@@ -160,7 +168,7 @@ const BranchSelection = () => {
       services: ['غسيل خارجي شامل', 'غسيل داخلي شامل', 'تلميع احترافي', 'معطر فاخر', 'خدمة VIP'],
       mapUrl: 'https://maps.app.goo.gl/example6',
       features: ['موقع مركزي', 'خدمة سريعة', 'أسعار منافسة', 'خدمة منزلية'],
-      image: '/src/assets/cod.jpeg',
+      image: codImage,
       coordinates: { lat: 24.7136, lng: 46.6753 },
       capacity: '16 سيارة/ساعة',
       specialties: ['سيارات فاخرة', 'سيارات رياضية', 'سيارات كلاسيكية']

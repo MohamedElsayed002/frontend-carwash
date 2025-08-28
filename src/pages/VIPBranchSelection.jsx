@@ -1,27 +1,49 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  MapPin, 
-  Phone, 
-  Clock, 
-  Car, 
-  CheckCircle, 
-  Star, 
+import {
+  MapPin,
+  Phone,
+  Clock,
+  Car,
+  CheckCircle,
+  Star,
   QrCode,
   Package,
-  User,
-  Calendar,
-  AlertTriangle,
-  Zap,
-  ArrowRight,
-  Gift,
   Crown,
+  Diamond,
+  Sparkles,
+  ArrowRight,
+  Timer,
+  Check,
+  Calendar,
   Shield,
-  Hotel
+  Zap,
+  Award,
+  Clock4,
+  MapPinIcon,
+  PhoneIcon,
+  StarIcon,
+  CarIcon,
+  CheckCircleIcon,
+  ArrowRightIcon,
+  TimerIcon,
+  CheckIcon,
+  CalendarIcon,
+  ShieldIcon,
+  ZapIcon,
+  AwardIcon,
+  Clock4Icon
 } from 'lucide-react';
+import Header from '../components/Header';
+import Footer from '../components/footer/Footer';
 import UnifiedButton from '../components/common/UnifiedButton';
 import UnifiedIcon from '../components/common/UnifiedIcon';
+
+// استيراد الصور بشكل صحيح
+import karltonImage from '../assets/كارلتون.jpeg';
+import riyadhImage from '../assets/ريتز.jpeg';
+import hiltonImage from '../assets/هيلتون.jpeg';
 
 const VIPBranchSelection = () => {
   const navigate = useNavigate();
@@ -51,7 +73,7 @@ const VIPBranchSelection = () => {
       services: ['غسيل VIP شامل', 'تلميع احترافي', 'شمع حماية', 'معطر فاخر', 'خدمة شخصية'],
       mapUrl: 'https://maps.app.goo.gl/TH9R8GjccK8xHRh29?g_st=ipc',
       features: ['خدمة VIP', 'معدات حديثة', 'خدمة سريعة', 'أسعار VIP', 'موقف مجاني'],
-      image: '/src/assets/كارلتون.jpeg',
+      image: karltonImage,
       coordinates: { lat: 24.7136, lng: 46.6753 },
       capacity: '10 سيارة/ساعة',
       specialties: ['سيارات فاخرة', 'سيارات رياضية', 'سيارات VIP'],
@@ -73,7 +95,7 @@ const VIPBranchSelection = () => {
       services: ['غسيل VIP شامل', 'تلميع احترافي', 'شمع حماية', 'معطر فاخر', 'خدمة شخصية'],
       mapUrl: 'https://maps.app.goo.gl/CzA8VYVkgQ16mFg4A?g_st=ipc',
       features: ['خدمة VIP', 'معدات حديثة', 'خدمة سريعة', 'أسعار VIP', 'موقف مجاني'],
-      image: '/src/assets/ريتز.jpeg',
+      image: riyadhImage,
       coordinates: { lat: 24.7136, lng: 46.6753 },
       capacity: '12 سيارة/ساعة',
       specialties: ['سيارات فاخرة', 'سيارات رياضية', 'سيارات VIP'],
@@ -95,7 +117,7 @@ const VIPBranchSelection = () => {
       services: ['غسيل VIP شامل', 'تلميع احترافي', 'شمع حماية', 'معطر فاخر', 'خدمة سريعة'],
       mapUrl: 'https://maps.app.goo.gl/jed6Jdz4gaL6o5Ar5?g_st=ipc',
       features: ['خدمة VIP', 'معدات حديثة', 'خدمة سريعة', 'أسعار VIP', 'موقف مجاني'],
-      image: '/src/assets/هيلتون.jpeg',
+      image: hiltonImage,
       coordinates: { lat: 24.7136, lng: 46.6753 },
       capacity: '15 سيارة/ساعة',
       specialties: ['سيارات فاخرة', 'سيارات رياضية', 'سيارات VIP'],
@@ -131,16 +153,16 @@ const VIPBranchSelection = () => {
 
     const now = new Date();
     const expiryDate = new Date(now.getTime() + (30 * 24 * 60 * 60 * 1000)); // 30 days
-    
+
     // Generate unique operation ID
     const operationId = `VIP${Date.now()}${Math.random().toString(36).substr(2, 5).toUpperCase()}`;
-    
+
     // Generate verification code
     const verificationCode = Math.random().toString(36).substr(2, 8).toUpperCase();
-    
+
     // Generate digital signature
     const digitalSignature = btoa(`${operationId}${verificationCode}${Date.now()}`).substr(0, 16);
-    
+
     // Generate transaction ID
     const transactionId = `VIP${Date.now()}${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
 
@@ -149,30 +171,30 @@ const VIPBranchSelection = () => {
       customerName: vipCheckoutData.customer?.name || 'العميل VIP',
       customerPhone: vipCheckoutData.customer?.phone || '',
       carType: vipCheckoutData.carType || 'medium',
-      
+
       // VIP Package Information
       packageType: 'vip',
       packageName: vipCheckoutData.name || 'باقة VIP',
       packagePrice: vipCheckoutData.price || 0,
       totalWashes: vipCheckoutData.washes || 1,
       remainingWashes: vipCheckoutData.washes || 1,
-      
+
       // VIP Hotel Information
       hotelName: vipCheckoutData.customer?.hotelName || 'فندق VIP',
       roomNumber: vipCheckoutData.customer?.roomNumber || '',
-      
+
       // Branch Information
       branchName: selectedBranch.arabicName,
       branchAddress: selectedBranch.arabicAddress,
       branchPhone: selectedBranch.phone,
       branchId: selectedBranch.id,
-      
+
       // Transaction Information
       operationId: operationId,
       transactionId: transactionId,
       paymentMethod: 'بطاقة ائتمان',
       paymentStatus: 'completed',
-      
+
       // Dates and Times
       startDate: now.toISOString(),
       expiryDate: expiryDate.toISOString(),
@@ -180,22 +202,22 @@ const VIPBranchSelection = () => {
       hijriDate: getHijriDate(now),
       dayOfWeek: getDayName(now.getDay()),
       time: now.toLocaleTimeString('ar-SA'),
-      
+
       // Security Information
       verificationCode: verificationCode,
       digitalSignature: digitalSignature,
-      
+
       // Technical Information
       appVersion: '1.0.0',
       deviceType: getDeviceType(navigator.userAgent),
       platform: navigator.platform,
-      
+
       // VIP Status Information
       packageStatus: 'active',
       vipStatus: 'active',
       lastUsed: null,
       usageHistory: [],
-      
+
       // Additional Information
       createdAt: now.toISOString(),
       qrVersion: '2.0',
@@ -205,7 +227,7 @@ const VIPBranchSelection = () => {
     setQrData(qrDataObject);
     setIsGeneratingQR(false);
     setShowQRModal(true);
-    
+
     // Save QR data
     localStorage.setItem('qrCodeData', JSON.stringify(qrDataObject));
     localStorage.setItem('selectedBranch', JSON.stringify(selectedBranch));
@@ -247,7 +269,7 @@ const VIPBranchSelection = () => {
         <div className="text-center">
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
           <p className="text-gray-600">جاري التحميل...</p>
-          <button 
+          <button
             onClick={() => navigate('/vip-package-details')}
             className="mt-4 bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600"
           >
@@ -264,10 +286,10 @@ const VIPBranchSelection = () => {
       <div className="bg-gradient-to-br from-green-500 to-green-700 py-16 relative overflow-hidden">
         <div className="absolute top-0 right-0 w-96 h-96 bg-gradient-to-bl from-white/10 to-transparent rounded-full -translate-y-48 translate-x-48"></div>
         <div className="absolute bottom-0 left-0 w-64 h-64 bg-gradient-to-tr from-white/10 to-transparent rounded-full translate-y-32 -translate-x-32"></div>
-        
+
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="text-center">
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -286,7 +308,7 @@ const VIPBranchSelection = () => {
             >
               اختر فرع VIP
             </motion.h1>
-            
+
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -328,14 +350,14 @@ const VIPBranchSelection = () => {
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Package Summary */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             className="bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-green-100 to-transparent rounded-full -translate-y-16 translate-x-16"></div>
             <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-blue-100 to-transparent rounded-full translate-y-12 -translate-x-12"></div>
-            
+
             <div className="relative z-10">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
@@ -417,11 +439,10 @@ const VIPBranchSelection = () => {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.1 }}
                     onClick={() => setSelectedBranch(branch)}
-                    className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg ${
-                      selectedBranch?.id === branch.id
-                        ? 'border-yellow-500 bg-yellow-50'
-                        : 'border-gray-200 hover:border-yellow-300'
-                    }`}
+                    className={`p-6 rounded-2xl border-2 cursor-pointer transition-all duration-300 hover:shadow-lg ${selectedBranch?.id === branch.id
+                      ? 'border-yellow-500 bg-yellow-50'
+                      : 'border-gray-200 hover:border-yellow-300'
+                      }`}
                   >
                     <div className="flex items-start justify-between mb-4">
                       <div className="flex items-center gap-2">
@@ -430,9 +451,9 @@ const VIPBranchSelection = () => {
                       </div>
                       <div className="text-yellow-600 font-bold text-sm">فرع VIP</div>
                     </div>
-                    
+
                     <h4 className="font-bold text-gray-800 text-lg mb-2">{branch.arabicName}</h4>
-                    
+
                     <div className="space-y-2 text-sm text-gray-600 mb-4">
                       <div className="flex items-center gap-2">
                         <MapPin className="w-4 h-4 text-yellow-500" />
@@ -447,7 +468,7 @@ const VIPBranchSelection = () => {
                         <span>{branch.workingHours}</span>
                       </div>
                     </div>
-                    
+
                     <div className="flex flex-wrap gap-2 mb-3">
                       {branch.features.slice(0, 3).map((feature, index) => (
                         <span key={index} className="bg-yellow-100 text-yellow-700 px-3 py-1 rounded-full text-xs font-medium">
@@ -455,7 +476,7 @@ const VIPBranchSelection = () => {
                         </span>
                       ))}
                     </div>
-                    
+
                     {selectedBranch?.id === branch.id && (
                       <div className="flex items-center gap-2 text-yellow-600 font-bold">
                         <CheckCircle className="w-5 h-5" />
@@ -466,55 +487,54 @@ const VIPBranchSelection = () => {
                 ))}
               </div>
 
-              
-             </div>
-           </motion.div>
-         </div>
-       </div>
 
-       {/* Generate QR Button - Top */}
-       <div className="max-w-6xl mx-auto px-6 py-8">
-         <motion.div
-           initial={{ opacity: 0, y: 20 }}
-           animate={{ opacity: 1, y: 0 }}
-           transition={{ delay: 0.4 }}
-           className="text-center"
-         >
-           <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-3xl p-6">
-             <div className="flex items-center justify-center mb-3">
-               <QrCode className="w-6 h-6 text-green-600 mr-2" />
-               <h3 className="text-xl font-bold text-gray-800">جاهز لإنشاء QR كود VIP؟</h3>
-             </div>
-             <p className="text-gray-600 mb-4 max-w-2xl mx-auto text-sm">
-               اختر الفرع المناسب لك ثم اضغط على الزر أدناه لإنشاء QR كود VIP
-             </p>
-             <motion.button
-               whileHover={{ scale: 1.02 }}
-               whileTap={{ scale: 0.98 }}
-               onClick={handleBranchSelection}
-               disabled={!selectedBranch || isGeneratingQR}
-               className={`px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-3 mx-auto ${
-                 !selectedBranch || isGeneratingQR
-                   ? 'bg-gray-400 text-white cursor-not-allowed'
-                   : 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-xl hover:shadow-2xl'
-               }`}
-             >
-               {isGeneratingQR ? (
-                 <>
-                   <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                   <span>جاري إنشاء QR كود VIP...</span>
-                 </>
-               ) : (
-                 <>
-                   <Crown className="w-5 h-5" />
-                   <span>إنشاء QR كود VIP</span>
-                   <QrCode className="w-5 h-5" />
-                 </>
-               )}
-             </motion.button>
-           </div>
-         </motion.div>
-       </div>
+            </div>
+          </motion.div>
+        </div>
+      </div>
+
+      {/* Generate QR Button - Top */}
+      <div className="max-w-6xl mx-auto px-6 py-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="text-center"
+        >
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-3xl p-6">
+            <div className="flex items-center justify-center mb-3">
+              <QrCode className="w-6 h-6 text-green-600 mr-2" />
+              <h3 className="text-xl font-bold text-gray-800">جاهز لإنشاء QR كود VIP؟</h3>
+            </div>
+            <p className="text-gray-600 mb-4 max-w-2xl mx-auto text-sm">
+              اختر الفرع المناسب لك ثم اضغط على الزر أدناه لإنشاء QR كود VIP
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={handleBranchSelection}
+              disabled={!selectedBranch || isGeneratingQR}
+              className={`px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-3 mx-auto ${!selectedBranch || isGeneratingQR
+                ? 'bg-gray-400 text-white cursor-not-allowed'
+                : 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-xl hover:shadow-2xl'
+                }`}
+            >
+              {isGeneratingQR ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  <span>جاري إنشاء QR كود VIP...</span>
+                </>
+              ) : (
+                <>
+                  <Crown className="w-5 h-5" />
+                  <span>إنشاء QR كود VIP</span>
+                  <QrCode className="w-5 h-5" />
+                </>
+              )}
+            </motion.button>
+          </div>
+        </motion.div>
+      </div>
 
 
 
@@ -536,17 +556,17 @@ const VIPBranchSelection = () => {
               <div className="w-20 h-20 bg-gradient-to-r from-yellow-500 to-amber-600 rounded-full flex items-center justify-center mx-auto mb-4">
                 <QrCode className="w-10 h-10 text-white" />
               </div>
-              
+
               <h3 className="text-2xl font-bold text-gray-800 mb-2">تم إنشاء QR كود VIP!</h3>
               <p className="text-gray-600 mb-6">يمكنك الآن استخدام QR كود في الفرع المختار</p>
-              
+
               <div className="bg-yellow-50 rounded-2xl p-4 mb-6">
                 <div className="text-sm text-gray-600 mb-2">رقم العملية</div>
                 <div className="font-mono font-bold text-gray-800 text-lg">
                   {qrData.operationId}
                 </div>
               </div>
-              
+
               <div className="flex gap-3">
                 <button
                   onClick={() => navigate('/washing-tracking')}

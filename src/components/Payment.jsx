@@ -1,6 +1,65 @@
 import React, { useState, useEffect } from 'react';
-import { CreditCard, Apple, CheckCircle } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import {
+  CreditCard,
+  Shield,
+  CheckCircle,
+  AlertCircle,
+  ArrowRight,
+  Lock,
+  Eye,
+  EyeOff,
+  Calendar,
+  User,
+  Building,
+  MapPin,
+  Phone,
+  Mail,
+  Clock,
+  Star,
+  Car,
+  Users,
+  Timer,
+  Check,
+  Award,
+  Zap,
+  Crown,
+  Diamond,
+  Sparkles,
+  Rocket,
+  Lightbulb,
+  Globe,
+  Smartphone,
+  Download,
+  QrCode,
+  Clock4,
+  MapPinIcon,
+  PhoneIcon,
+  StarIcon,
+  CarIcon,
+  UsersIcon,
+  CheckCircleIcon,
+  ArrowRightIcon,
+  TimerIcon,
+  CheckIcon,
+  Clock4Icon,
+  ShieldIcon,
+  ZapIcon,
+  AwardIcon,
+  GlobeIcon,
+  SmartphoneIcon,
+  DownloadIcon,
+  QrCodeIcon,
+  CrownIcon,
+  DiamondIcon,
+  SparklesIcon,
+  RocketIcon,
+  LightbulbIcon
+} from 'lucide-react';
+
+// استيراد الصور بشكل صحيح
+import applePayLogo from '../assets/apple-pay.png';
 import { createPayment, setAuthToken } from '../api';
 import '../App.css';
 
@@ -15,7 +74,7 @@ const Payment = () => {
   useEffect(() => {
     // التمرير إلى أعلى الصفحة عند تحميل المكون
     window.scrollTo(0, 0);
-    
+
     const pkg = localStorage.getItem('selectedPackage');
     if (pkg) setSelectedPackage(JSON.parse(pkg));
     const token = localStorage.getItem('token');
@@ -23,7 +82,7 @@ const Payment = () => {
   }, []);
 
   const paymentMethods = [
-    { id: 'apple-pay', name: 'Apple Pay', icon: <img src="/src/assets/apple-pay.png" alt="Apple Pay" className="h-6 w-6" />, color: 'bg-black', ring: 'ring-black', description: 'الدفع السريع عبر Apple Pay' },
+    { id: 'apple-pay', name: 'Apple Pay', icon: <img src={applePayLogo} alt="Apple Pay" className="h-6 w-6" />, color: 'bg-black', ring: 'ring-black', description: 'الدفع السريع عبر Apple Pay' },
     { id: 'mada', name: 'مدى', icon: <CreditCard className="h-6 w-6" />, color: 'bg-green-600', ring: 'ring-green-600', description: 'بطاقة مدى المحلية' },
     { id: 'credit-card', name: 'بطاقة ائتمان', icon: <CreditCard className="h-6 w-6" />, color: 'bg-blue-600', ring: 'ring-blue-600', description: 'فيزا، ماستركارد، مدى' }
   ];
@@ -96,7 +155,7 @@ const Payment = () => {
               </div>
               <h3 className="payment-header-text">طرق الدفع الآمنة</h3>
             </div>
-            
+
             <div className="flex flex-col gap-4">
               {paymentMethods.map((method) => (
                 <div
@@ -112,11 +171,11 @@ const Payment = () => {
                       </svg>
                     </div>
                   )}
-                  
+
                   <div className="payment-option-content">
                     <div className={`payment-option-icon ${method.id === 'apple-pay' ? 'apple-pay-icon-container' : 'credit-card-icon-container'}`}>
                       {method.id === 'apple-pay' ? (
-                        <img src="/src/assets/apple-pay.png" alt="Apple Pay" className="apple-pay-icon" />
+                        <img src={applePayLogo} alt="Apple Pay" className="apple-pay-icon" />
                       ) : (
                         <svg className="credit-card-icon" fill="currentColor" viewBox="0 0 20 20">
                           <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4zM18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z" />
