@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Award, Users, Target, Heart, Shield, Zap, Globe, Clock, Star, TrendingUp } from 'lucide-react';
+import { Award, Users, Target, Heart, Shield, Zap, Globe, Clock, TrendingUp } from 'lucide-react';
 import PageHeader from './common/PageHeader';
 import AnimatedCard from './common/AnimatedCard';
 import '../components/common/styles.css';
