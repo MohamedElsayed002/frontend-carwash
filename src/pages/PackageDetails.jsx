@@ -114,8 +114,8 @@ const PackageDetails = () => {
         paymentType: "DB",
         customer: {
           email: userData.email,
-          name: userData.name,
-          phone: userData.phone,
+          givenName: userData.name,
+          surname: userData.username,
         },
         billing: {
           street1: "Test Street",

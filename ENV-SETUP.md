@@ -51,8 +51,8 @@ echo VITE_APP_VERSION=1.0.0 >> .env
 echo VITE_APP_ENVIRONMENT=development >> .env
 echo. >> .env
 echo # Backend API Configuration >> .env
-echo VITE_API_BASE_URL=http://localhost:5000/api >> .env
-echo VITE_BACKEND_URL=http://localhost:5000 >> .env
+echo VITE_API_BASE_URL=https://carwash-backend-production.up.railway.app/api >> .env
+echo VITE_BACKEND_URL=https://carwash-backend-production.up.railway.app >> .env
 echo. >> .env
 echo # Authentication >> .env
 echo VITE_JWT_STORAGE_KEY=frontend_token >> .env
@@ -89,8 +89,8 @@ VITE_APP_VERSION=1.0.0
 VITE_APP_ENVIRONMENT=development
 
 # Backend API Configuration
-VITE_API_BASE_URL=http://localhost:5000/api
-VITE_BACKEND_URL=http://localhost:5000
+VITE_API_BASE_URL=https://carwash-backend-production.up.railway.app/api
+VITE_BACKEND_URL=https://carwash-backend-production.up.railway.app
 
 # Authentication
 VITE_JWT_STORAGE_KEY=frontend_token

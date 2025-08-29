@@ -53,7 +53,6 @@ export const hyperpayEnhancedAPI = {
                 'billing.city': billingCity,
                 'billing.state': billingState,
                 'billing.country': billingCountry,
-                testMode: 'EXTERNAL'
             });
 
             const response = await axios.post(`${getBaseUrl()}/v1/checkouts`, formData, {
