@@ -111,7 +111,7 @@ const PackageDetails = () => {
       const checkoutData = {
         amount: packageData.basePrice,
         currency: 'SAR',
-        paymentType: "DB",
+        paymentMethod : "APPLEPAY",
         customer: {
           email: userData.email,
           givenName: userData.name,
