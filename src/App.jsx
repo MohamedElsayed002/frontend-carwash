@@ -48,7 +48,6 @@ import WashPrinter from './pages/WashPrinter';
 import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
 import Support from './pages/Support';
-import SignIn from './pages/SignIn';
 import SignUp from './pages/Signup';
 import Login from './pages/Login';
 import Profile from './pages/Profile';

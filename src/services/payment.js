@@ -4,14 +4,14 @@ import { paymentAPI } from '../api.js';
 class PaymentService {
   constructor() {
     this.hyperpayConfig = {
-      merchantId: import.meta.env.VITE_HYPERPAY_MERCHANT_ID,
-      accessToken: import.meta.env.VITE_HYPERPAY_ACCESS_TOKEN,
-      environment: import.meta.env.VITE_HYPERPAY_ENVIRONMENT || 'test'
+      merchantId: 'your_hyperpay_merchant_id',
+      accessToken: 'your_hyperpay_access_token',
+      environment: 'test'
     };
     
     this.applePayConfig = {
-      merchantId: import.meta.env.VITE_APPLE_PAY_MERCHANT_ID,
-      domain: import.meta.env.VITE_APPLE_PAY_DOMAIN || 'localhost'
+      merchantId: 'your_apple_pay_merchant_id',
+      domain: 'localhost'
     };
   }
 

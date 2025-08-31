@@ -3,7 +3,7 @@ import { useLocation, Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // تأكد من أن هذا الرابط صحيح 100%
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://carwash-backend-production.up.railway.app/api';
+const API_BASE_URL = 'https://carwash-backend-production.up.railway.app/api';
 
 const PaymentResult = () => {
     const [status, setStatus] = useState('pending');

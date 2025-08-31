@@ -165,7 +165,7 @@ const UpdateProfile = () => {
             }
 
             // Call API to update user
-            const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/profile`, {
+            const response = await fetch(`https://carwash-backend-production.up.railway.app/api/user/profile`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

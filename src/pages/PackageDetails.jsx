@@ -49,7 +49,7 @@ const PackageDetails = () => {
       setLoading(true);
       setError(null);
 
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/profile`, {
+      const response = await fetch(`https://carwash-backend-production.up.railway.app/api/users/profile`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +127,7 @@ const PackageDetails = () => {
       };
 
       const checkoutResponse = await hyperpayAPI.prepareCheckout(checkoutData);
-      console.log('data',checkoutResponse)
+      console.log('data', checkoutResponse)
       if (checkoutResponse.success && checkoutResponse.data.checkoutId) {
         localStorage.setItem('checkoutData', JSON.stringify(checkoutResponse));
         localStorage.setItem('checkoutId', checkoutResponse.data.checkoutId);

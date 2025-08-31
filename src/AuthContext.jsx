@@ -53,7 +53,7 @@ export function AuthProvider({ children }) {
   const login = async (credentials) => {
     try {
       const response = await authAPI.login(credentials);
-
+      console.log(response)
       if (!response) {
         console.error('AuthContext: Invalid response structure', response);
         return {
@@ -88,9 +88,38 @@ export function AuthProvider({ children }) {
         data: error.response?.data
       });
 
+      // Extract specific error message from server response
+      let errorMessage = 'فشل في تسجيل الدخول';
+
+      if (error.response?.data?.error) {
+        // Server returned specific error message
+        errorMessage = error.response.data.error;
+      } else if (error.response?.data?.message) {
+        // Server returned message field
+        errorMessage = error.response.data.message;
+      } else if (error.message && error.message !== 'Network Error') {
+        // API function returned specific error
+        errorMessage = error.message;
+      } else if (error.response?.status === 401) {
+        // Unauthorized - invalid credentials
+        errorMessage = 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+      } else if (error.response?.status === 404) {
+        // User not found
+        errorMessage = 'البريد الإلكتروني غير مسجل في النظام';
+      } else if (error.response?.status === 400) {
+        // Bad request - validation error
+        errorMessage = 'بيانات غير صحيحة. يرجى التحقق من البريد الإلكتروني وكلمة المرور';
+      } else if (error.response?.status >= 500) {
+        // Server error
+        errorMessage = 'خطأ في الخادم. يرجى المحاولة مرة أخرى لاحقاً';
+      } else if (error.code === 'NETWORK_ERROR' || error.message === 'Network Error') {
+        // Network error
+        errorMessage = 'خطأ في الاتصال. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى';
+      }
+
       return {
         success: false,
-        error: error.message || 'Login failed'
+        error: errorMessage
       };
     }
   };
@@ -98,7 +127,7 @@ export function AuthProvider({ children }) {
   const signup = async (userData) => {
     try {
       const response = await authAPI.signup(userData);
-
+      console.log(response)
       // Don't automatically log in the user after registration
       // Just return success to show the toaster and redirect to login
       return { success: true };
@@ -106,7 +135,7 @@ export function AuthProvider({ children }) {
       console.error('Signup error:', error);
       return {
         success: false,
-        error: error.response?.data?.error || 'Signup failed'
+        error: error.response?.data?.error || 'استخدم ايمل او رقم هاتف فريد'
       };
     }
   };

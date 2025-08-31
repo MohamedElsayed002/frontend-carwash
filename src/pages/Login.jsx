@@ -83,6 +83,14 @@ const Login = () => {
         [name]: ''
       }));
     }
+
+    // Clear any server-side errors when user starts typing
+    if (name === 'email' || name === 'password') {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
   };
 
   // Show notification helper
@@ -123,6 +131,19 @@ const Login = () => {
         }, 1500);
       } else {
         showErrorNotification(result.error || 'خطأ في تسجيل الدخول');
+
+        // Also show field-specific errors if available
+        if (result.error && result.error.includes('البريد الإلكتروني')) {
+          setErrors(prev => ({ ...prev, email: result.error }));
+        } else if (result.error && result.error.includes('كلمة المرور')) {
+          setErrors(prev => ({ ...prev, password: result.error }));
+        } else if (result.error && (result.error.includes('غير صحيحة') || result.error.includes('غير مسجل'))) {
+          // For general credential errors, show in both fields
+          setErrors(prev => ({
+            email: 'بيانات تسجيل الدخول غير صحيحة',
+            password: 'بيانات تسجيل الدخول غير صحيحة'
+          }));
+        }
       }
     } catch (error) {
       console.log(error)
@@ -131,26 +152,6 @@ const Login = () => {
       setIsLoading(false);
     }
   };
-
-
-  // Benefits data
-  const benefits = [
-    {
-      icon: <Shield className="w-6 h-6" />,
-      title: 'حماية آمنة',
-      description: 'بياناتك محمية بأحدث تقنيات الأمان'
-    },
-    {
-      icon: <Sparkles className="w-6 h-6" />,
-      title: 'خدمة مميزة',
-      description: 'استمتع بأفضل خدمات غسيل السيارات'
-    },
-    {
-      icon: <CheckCircle className="w-6 h-6" />,
-      title: 'جودة مضمونة',
-      description: 'نضمن لك جودة عالية في كل مرة'
-    }
-  ];
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 md:-mt-64 md:-ml-96">
@@ -184,14 +185,13 @@ const Login = () => {
                 البريد الإلكتروني
               </label>
               <div className="relative">
-                <Mail className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type="email"
                   id="email"
                   name="email"
                   value={formData.email}
                   onChange={handleInputChange}
-                  className={`w-full pr-12 pl-4 py-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${errors.email ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-green-500'
+                  className={`w-full pr-12 pl-4 py-4 placeholder:text-right border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${errors.email ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-green-500'
                     }`}
                   placeholder="أدخل بريدك الإلكتروني"
                   dir="ltr"
@@ -215,14 +215,13 @@ const Login = () => {
                 كلمة المرور
               </label>
               <div className="relative">
-                <Lock className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
                   value={formData.password}
                   onChange={handleInputChange}
-                  className={`w-full pr-12 pl-12 py-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${errors.password ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-green-500'
+                  className={`w-full pr-12 pl-12 placeholder:text-right py-4 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${errors.password ? 'border-red-300 focus:border-red-500' : 'border-gray-200 focus:border-green-500'
                     }`}
                   placeholder="أدخل كلمة المرور"
                   dir="ltr"
@@ -302,6 +301,16 @@ const Login = () => {
         </motion.div>
 
       </div>
+
+      {/* Notification Component */}
+      {showNotification && (
+        <Notification
+          type={notificationData.type}
+          title={notificationData.title}
+          message={notificationData.message}
+          onClose={() => setShowNotification(false)}
+        />
+      )}
     </div>
   );
 };

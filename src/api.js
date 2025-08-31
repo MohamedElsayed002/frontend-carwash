@@ -2,9 +2,9 @@
 import axios from 'axios';
 
 // API Configuration
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://carwash-backend-production.up.railway.app/api';
-const JWT_STORAGE_KEY = import.meta.env.VITE_JWT_STORAGE_KEY || 'frontend_token';
-const USER_STORAGE_KEY = import.meta.env.VITE_USER_STORAGE_KEY || 'frontend_user';
+const API_BASE_URL = 'https://carwash-backend-production.up.railway.app/api';
+const JWT_STORAGE_KEY = 'frontend_token';
+const USER_STORAGE_KEY = 'frontend_user';
 
 // Create axios instance
 const api = axios.create({
@@ -145,16 +145,15 @@ export const authAPI = {
       // Return success response for registration
       return { success: true, message: 'تم إنشاء الحساب بنجاح' };
     } catch (error) {
-      throw new Error(error.response?.data?.error || 'فشل في التسجيل');
+      console.log()
+      throw new Error(error.response?.data?.error || 'استخدم ايمل او رقم هاتف فريد');
     }
   },
 
   login: async (credentials) => {
     try {
-      console.log('Attempting login with credentials:', credentials);
+
       const response = await api.post('/user/login', credentials);
-      console.log('Login response:', response);
-      console.log('Login response.data:', response.data);
 
       const { token, user } = response.data;
 
@@ -163,10 +162,33 @@ export const authAPI = {
 
       return response.data;
     } catch (error) {
-      console.error('API Login error:', error);
-      console.error('Error response:', error.response);
-      console.error('Error response.data:', error.response?.data);
-      throw new Error(error.response?.data?.message || 'فشل في تسجيل الدخول');
+      // Extract specific error message from server response
+      let errorMessage = 'فشل في تسجيل الدخول';
+
+      if (error.response?.data?.error) {
+        // Server returned specific error message
+        errorMessage = error.response.data.error;
+      } else if (error.response?.data?.message) {
+        // Server returned message field
+        errorMessage = error.response.data.message;
+      } else if (error.response?.status === 401) {
+        // Unauthorized - invalid credentials
+        errorMessage = 'البريد الإلكتروني أو كلمة المرور غير صحيحة';
+      } else if (error.response?.status === 404) {
+        // User not found
+        errorMessage = 'البريد الإلكتروني غير مسجل في النظام';
+      } else if (error.response?.status === 400) {
+        // Bad request - validation error
+        errorMessage = 'بيانات غير صحيحة. يرجى التحقق من البريد الإلكتروني وكلمة المرور';
+      } else if (error.response?.status >= 500) {
+        // Server error
+        errorMessage = 'خطأ في الخادم. يرجى المحاولة مرة أخرى لاحقاً';
+      } else if (error.code === 'NETWORK_ERROR' || error.message === 'Network Error') {
+        // Network error
+        errorMessage = 'خطأ في الاتصال. يرجى التحقق من اتصال الإنترنت والمحاولة مرة أخرى';
+      }
+
+      throw new Error(errorMessage);
     }
   },
 

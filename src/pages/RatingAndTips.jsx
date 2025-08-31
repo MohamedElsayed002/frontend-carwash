@@ -131,7 +131,7 @@ const RatingAndTips = () => {
 
       // Send to backend
       const token = localStorage.getItem('frontend_token');
-      await fetch(`${import.meta.env.VITE_API_BASE_URL}/feedback/submit-rating`, {
+              await fetch(`https://carwash-backend-production.up.railway.app/api/feedback/submit-rating`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -215,7 +215,7 @@ const RatingAndTips = () => {
 
       // Send to backend
       const token = localStorage.getItem('frontend_token');
-      await fetch(`${import.meta.env.VITE_API_BASE_URL}/tips/submit-tip`, {
+              await fetch(`https://carwash-backend-production.up.railway.app/api/tips/submit-tip`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

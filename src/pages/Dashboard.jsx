@@ -13,7 +13,7 @@ import {
 import LiveWashingTracker from '../components/LiveWashingTracker';
 import BranchManager from '../components/BranchManager';
 
-const API_BASE = import.meta.env.VITE_BACKEND_URL || 'https://carwash-backend-production.up.railway.app';
+const API_BASE = 'https://carwash-backend-production.up.railway.app';
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);

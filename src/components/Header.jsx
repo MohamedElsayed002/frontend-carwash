@@ -58,7 +58,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-16 sm:h-20">
 
           {/* الشعار */}
-          <Link to="/" className="flex items-center gap-3 group">
+          <Link to="/" className="hidden lg:flex items-center gap-3 group">
             <div className="w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center">
               <img src={logo} alt="PayPass Logo" className="w-full h-full object-contain" />
             </div>

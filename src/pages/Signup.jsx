@@ -15,7 +15,11 @@ import {
   Sparkles,
   Car,
   Loader2,
-  AtSign
+  AtSign,
+  MailIcon,
+  Inbox,
+  AtSignIcon,
+  MailCheck
 } from 'lucide-react';
 import { useAuth } from '../useAuth';
 import Notification from '../components/common/Notification';
@@ -33,7 +37,6 @@ const SignUp = () => {
     password: '',
     confirmPassword: '',
     username: '',
-    agreeToTerms: false
   });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
@@ -82,8 +85,6 @@ const SignUp = () => {
       newErrors.name = 'الاسم الكامل مطلوب';
     } else if (formData.name.trim().length < 3) {
       newErrors.name = 'الاسم الكامل يجب أن يكون 3 أحرف على الأقل';
-    } else if (!/^[\u0600-\u06FF\s]+$/.test(formData.name.trim())) {
-      newErrors.name = 'الاسم الكامل يجب أن يكون باللغة العربية';
     }
 
     if (!formData.username.trim()) {
@@ -91,7 +92,7 @@ const SignUp = () => {
     } else if (formData.username.trim().length < 3) {
       newErrors.username = 'اسم المستخدم يجب أن يكون 3 أحرف على الأقل';
     } else if (!/^[a-zA-Z0-9_]+$/.test(formData.username.trim())) {
-      newErrors.username = 'اسم المستخدم يجب أن يحتوي على أحرف إنجليزية وأرقام فقط';
+      newErrors.username = "اسم المستخدم يجب أن يحتوي على أحرف إنجليزية وأرقام فقط'. يجب لا يوجد مسافه";
     }
 
     if (!formData.email.trim()) {
@@ -110,8 +111,6 @@ const SignUp = () => {
       newErrors.password = 'كلمة المرور مطلوبة';
     } else if (formData.password.length < 8) {
       newErrors.password = 'كلمة المرور يجب أن تكون 8 أحرف على الأقل';
-    } else if (!/(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/.test(formData.password)) {
-      newErrors.password = 'كلمة المرور يجب أن تحتوي على حرف كبير وحرف صغير ورقم';
     }
 
     if (!formData.confirmPassword) {
@@ -119,11 +118,6 @@ const SignUp = () => {
     } else if (formData.password !== formData.confirmPassword) {
       newErrors.confirmPassword = 'كلمة المرور غير متطابقة';
     }
-
-    if (!formData.agreeToTerms) {
-      newErrors.agreeToTerms = 'يجب الموافقة على الشروط والأحكام';
-    }
-
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -147,6 +141,8 @@ const SignUp = () => {
         username: formData.username.trim()
       });
 
+      console.log('result',result)
+
       if (result.success) {
         showSuccessNotification('تم إنشاء الحساب بنجاح! يمكنك الآن تسجيل الدخول.');
 
@@ -162,34 +158,16 @@ const SignUp = () => {
       console.error('Signup error:', error);
       const errorMessage = error.response?.data?.error || 'خطأ في الاتصال. يرجى المحاولة مرة أخرى.';
       setErrors({ general: errorMessage });
-      showErrorNotification(errorMessage);
+      showErrorNotification("");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const features = [
-    {
-      icon: <Car className="w-6 h-6" />,
-      title: 'غسيل احترافي',
-      description: 'خدمات غسيل السيارات بأعلى جودة'
-    },
-    {
-      icon: <Shield className="w-6 h-6" />,
-      title: 'حماية آمنة',
-      description: 'بياناتك محمية بأحدث تقنيات الأمان'
-    },
-    {
-      icon: <Sparkles className="w-6 h-6" />,
-      title: 'خدمة مميزة',
-      description: 'استمتع بأفضل الخدمات والخصومات'
-    }
-  ];
-
   return (
     <>
       <div className="flex items-center justify-center p-4 pt-32 pb-16 md:-mt-64">
-        <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-8 items-center">
+        <div className="w-4/5 mx-auto max-w-6xl gap-8 items-center">
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             animate={{ opacity: isVisible ? 1 : 0, x: isVisible ? 0 : -50 }}
@@ -238,7 +216,6 @@ const SignUp = () => {
                   الاسم الكامل <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
-                  <User className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
                     type="text"
                     name="name"
@@ -263,7 +240,6 @@ const SignUp = () => {
                   اسم المستخدم <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
-                  <AtSign className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
                     type="text"
                     name="username"
@@ -288,7 +264,6 @@ const SignUp = () => {
                   البريد الإلكتروني <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
-                  <Mail className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
                     type="email"
                     name="email"
@@ -313,15 +288,14 @@ const SignUp = () => {
                   رقم الهاتف <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
-                  <Phone className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className={`w-full pr-12 pl-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${errors.phone ? 'border-red-300 focus:ring-red-500' : 'border-gray-300'
+                    className={`w-full placeholder:text-right pr-12 pl-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${errors.phone ? 'border-red-300 focus:ring-red-500' : 'border-gray-300'
                       }`}
-                    placeholder="05xxxxxxxx"
+                    placeholder="+966 59 870 2593"
                     disabled={isLoading}
                   />
                 </div>
@@ -338,7 +312,6 @@ const SignUp = () => {
                   كلمة المرور <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
-                  <Lock className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
                     type={showPassword ? 'text' : 'password'}
                     name="password"
@@ -370,7 +343,6 @@ const SignUp = () => {
                   تأكيد كلمة المرور <span className="text-red-500">*</span>
                 </label>
                 <div className="relative">
-                  <Lock className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                   <input
                     type={showConfirmPassword ? 'text' : 'password'}
                     name="confirmPassword"
@@ -397,31 +369,6 @@ const SignUp = () => {
                 )}
               </div>
 
-              <div className="flex items-start gap-3">
-                <input
-                  type="checkbox"
-                  name="agreeToTerms"
-                  checked={formData.agreeToTerms}
-                  onChange={handleInputChange}
-                  className="mt-1 w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-                />
-                <label className="text-sm text-gray-600">
-                  أوافق على{' '}
-                  <Link to="/terms" className="text-green-600 hover:text-green-700 font-semibold">
-                    الشروط والأحكام
-                  </Link>{' '}
-                  و{' '}
-                  <Link to="/privacy" className="text-green-600 hover:text-green-700 font-semibold">
-                    سياسة الخصوصية
-                  </Link>
-                </label>
-              </div>
-              {errors.agreeToTerms && (
-                <p className="text-red-600 text-sm flex items-center gap-1">
-                  <AlertCircle className="w-4 h-4" />
-                  {errors.agreeToTerms}
-                </p>
-              )}
 
               <motion.button
                 whileHover={{ scale: isLoading ? 1 : 1.02 }}
@@ -436,10 +383,9 @@ const SignUp = () => {
                     جاري إنشاء الحساب...
                   </>
                 ) : (
-                  <>
-                    <span>إنشاء الحساب</span>
-                    <ArrowRight className="w-5 h-5" />
-                  </>
+                  <div>
+                    <p className='text-white'>إنشاء الحساب</p>
+                  </div>
                 )}
               </motion.button>
             </form>
@@ -447,70 +393,10 @@ const SignUp = () => {
             <div className="text-center mt-4">
               <p className="text-gray-600">
                 لديك حساب بالفعل؟{' '}
-                <Link to="/signin" className="text-green-600 hover:text-green-700 font-semibold">
+                <Link to="/login" className="text-green-600 hover:text-green-700 font-semibold">
                   تسجيل الدخول
                 </Link>
               </p>
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: isVisible ? 1 : 0, x: isVisible ? 0 : 50 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="hidden lg:block"
-          >
-            <div className="bg-gradient-to-br from-green-500 to-emerald-600 rounded-3xl p-8 lg:p-12 text-white relative overflow-hidden">
-              <div className="absolute top-0 left-0 w-64 h-64 bg-white/10 rounded-full -translate-x-32 -translate-y-32"></div>
-              <div className="absolute bottom-0 right-0 w-64 h-64 bg-white/10 rounded-full translate-x-32 translate-y-32"></div>
-
-              <div className="relative z-10">
-                <div className="text-center mb-12">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    animate={{ scale: isVisible ? 1 : 0 }}
-                    transition={{ duration: 0.5, delay: 0.5 }}
-                    className="w-20 h-20 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
-                  >
-                    <Car className="w-10 h-10" />
-                  </motion.div>
-
-                  <h2 className="text-3xl font-bold mb-4">انضم إلى PayPass</h2>
-                  <p className="text-green-100 text-lg">واستمتع بأفضل خدمات غسيل السيارات</p>
-                </div>
-
-                <div className="space-y-6">
-                  {features.map((feature, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, x: 30 }}
-                      animate={{ opacity: isVisible ? 1 : 0, x: isVisible ? 0 : 30 }}
-                      transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                      className="flex items-center gap-4 bg-white/10 backdrop-blur-sm rounded-2xl p-4"
-                    >
-                      <div className="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                        {feature.icon}
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-lg">{feature.title}</h3>
-                        <p className="text-green-100">{feature.description}</p>
-                      </div>
-                    </motion.div>
-                  ))}
-                </div>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: isVisible ? 1 : 0, y: isVisible ? 0 : 20 }}
-                  transition={{ duration: 0.5, delay: 1 }}
-                  className="text-center mt-12"
-                >
-                  <div className="flex items-center justify-center gap-2 text-green-100">
-                    <CheckCircle className="w-5 h-5" />
-                    <span>أكثر من 10K عميل يثقون بنا</span>
-                  </div>
-                </motion.div>
-              </div>
             </div>
           </motion.div>
         </div>

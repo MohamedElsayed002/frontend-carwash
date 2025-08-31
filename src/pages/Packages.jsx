@@ -46,7 +46,7 @@ const Packages = () => {
 
       // جلب كل باقة بشكل منفصل مع الحجم المحدد
       const packagePromises = packageIds.map(async (packageId) => {
-        const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/packages/get-single-package-id/${packageId}?size=${carSize}`);
+        const response = await fetch(`https://carwash-backend-production.up.railway.app/api/packages/get-single-package-id/${packageId}?size=${carSize}`);
 
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -96,7 +96,7 @@ const Packages = () => {
     console.log('packageInfo', packageInfo)
 
 
-    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/add-package`, {
+    const response = await fetch(`https://carwash-backend-production.up.railway.app/api/users/add-package`, {
       method: 'POST',
       headers: {
         'Content-Type': "application/json",

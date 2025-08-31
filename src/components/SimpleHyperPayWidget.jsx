@@ -5,7 +5,7 @@ const SimpleHyperPayWidget = ({ amount, currency = 'USD', onSuccess, onError }) 
     const [step, setStep] = useState('init'); // init, loading, widget, success, error
     const [checkoutId, setCheckoutId] = useState(null);
     const [error, setError] = useState(null);
-    
+
     const widgetContainerRef = useRef(null);
 
     // ✅ تهيئة الدفع - بسيط وسريع
@@ -33,7 +33,7 @@ const SimpleHyperPayWidget = ({ amount, currency = 'USD', onSuccess, onError }) 
                 }
             };
 
-            const response = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/hyperpay/create-checkout`, checkoutData);
+            const response = await axios.post(`https://carwash-backend-production.up.railway.app/api/hyperpay/create-checkout`, checkoutData);
 
             if (response.data.success && response.data.data.checkoutId) {
                 setCheckoutId(response.data.data.checkoutId);

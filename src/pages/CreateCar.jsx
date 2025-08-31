@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  Car, 
-  ArrowLeft, 
-  Save, 
-  Loader2, 
+import {
+  Car,
+  ArrowLeft,
+  Save,
+  Loader2,
   CheckCircle,
   AlertTriangle,
   Calendar,
@@ -25,7 +25,7 @@ const CreateCar = () => {
   const [loading, setLoading] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationData, setNotificationData] = useState({});
-  
+
   const [formData, setFormData] = useState({
     brand: '',
     model: '',
@@ -63,7 +63,7 @@ const CreateCar = () => {
       ...prev,
       [field]: value
     }));
-    
+
     // Clear error when user starts typing
     if (errors[field]) {
       setErrors(prev => ({
@@ -106,7 +106,7 @@ const CreateCar = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       showErrorNotification('يرجى التأكد من صحة البيانات المدخلة');
       return;
@@ -115,7 +115,7 @@ const CreateCar = () => {
     setLoading(true);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/cars`, {
+      const response = await fetch(`https://carwash-backend-production.up.railway.app/api/cars`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -125,22 +125,22 @@ const CreateCar = () => {
       });
 
       const data = await response.json();
-      console.log('data create car',data)
+      console.log('data create car', data)
 
       if (response.ok) {
         showSuccessNotification('تم إضافة السيارة بنجاح');
-        
+
         // Save car data to localStorage for package details
         localStorage.setItem('selectedCar', JSON.stringify(data));
-        
+
         // Navigate to package details after a short delay
         setTimeout(() => {
           // Get the selected package from location state or localStorage
           const selectedPackage = location.state?.selectedPackage || JSON.parse(localStorage.getItem('selectedPackage'));
-          
+
           if (selectedPackage) {
             navigate(`/package-details/${selectedPackage._id || selectedPackage.id}`, {
-              state: { 
+              state: {
                 selectedPackage,
                 selectedCar: data
               }
@@ -191,7 +191,7 @@ const CreateCar = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 py-12">
       <div className="max-w-4xl mx-auto px-4">
-        
+
         {/* Back Button */}
         <motion.button
           initial={{ opacity: 0, x: -20 }}
@@ -223,7 +223,7 @@ const CreateCar = () => {
           className="bg-white rounded-3xl shadow-xl p-8"
         >
           <form onSubmit={handleSubmit} className="space-y-6">
-            
+
             {/* Basic Car Information */}
             <div className="grid md:grid-cols-2 gap-6">
               <div>
@@ -236,9 +236,8 @@ const CreateCar = () => {
                   value={formData.brand}
                   onChange={(e) => handleInputChange('brand', e.target.value)}
                   placeholder="مثال: Toyota"
-                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${
-                    errors.brand ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${errors.brand ? 'border-red-500' : 'border-gray-300'
+                    }`}
                 />
                 {errors.brand && (
                   <p className="text-red-500 text-sm mt-1">{errors.brand}</p>
@@ -255,9 +254,8 @@ const CreateCar = () => {
                   value={formData.model}
                   onChange={(e) => handleInputChange('model', e.target.value)}
                   placeholder="مثال: Camry"
-                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${
-                    errors.model ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${errors.model ? 'border-red-500' : 'border-gray-300'
+                    }`}
                 />
                 {errors.model && (
                   <p className="text-red-500 text-sm mt-1">{errors.model}</p>
@@ -272,9 +270,8 @@ const CreateCar = () => {
                 <select
                   value={formData.year}
                   onChange={(e) => handleInputChange('year', parseInt(e.target.value))}
-                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${
-                    errors.year ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${errors.year ? 'border-red-500' : 'border-gray-300'
+                    }`}
                 >
                   {years.map(year => (
                     <option key={year} value={year}>{year}</option>
@@ -295,9 +292,8 @@ const CreateCar = () => {
                   value={formData.color}
                   onChange={(e) => handleInputChange('color', e.target.value)}
                   placeholder="مثال: أبيض"
-                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${
-                    errors.color ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${errors.color ? 'border-red-500' : 'border-gray-300'
+                    }`}
                 />
                 {errors.color && (
                   <p className="text-red-500 text-sm mt-1">{errors.color}</p>
@@ -317,9 +313,8 @@ const CreateCar = () => {
                   value={formData.plateNumber}
                   onChange={(e) => handleInputChange('plateNumber', e.target.value)}
                   placeholder="مثال: ABC123"
-                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${
-                    errors.plateNumber ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${errors.plateNumber ? 'border-red-500' : 'border-gray-300'
+                    }`}
                 />
                 {errors.plateNumber && (
                   <p className="text-red-500 text-sm mt-1">{errors.plateNumber}</p>
@@ -336,9 +331,8 @@ const CreateCar = () => {
                   value={formData.licensePlate}
                   onChange={(e) => handleInputChange('licensePlate', e.target.value)}
                   placeholder="مثال: 1427 S R C"
-                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${
-                    errors.licensePlate ? 'border-red-500' : 'border-gray-300'
-                  }`}
+                  className={`w-full px-4 py-3 border-2 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all ${errors.licensePlate ? 'border-red-500' : 'border-gray-300'
+                    }`}
                 />
                 {errors.licensePlate && (
                   <p className="text-red-500 text-sm mt-1">{errors.licensePlate}</p>

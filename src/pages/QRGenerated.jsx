@@ -69,7 +69,7 @@ const QRGenerated = () => {
       }
 
       // Fetch QR code data from API
-      const qrResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/package-qr-code`, {
+      const qrResponse = await fetch(`https://carwash-backend-production.up.railway.app/api/user/package-qr-code`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -98,7 +98,7 @@ const QRGenerated = () => {
       }
 
       // Fetch package status for additional info
-      const statusResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/package-status`, {
+      const statusResponse = await fetch(`https://carwash-backend-production.up.railway.app/api/user/package-status`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'

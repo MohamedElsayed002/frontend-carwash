@@ -14,7 +14,7 @@ const ApplePayButton = ({ amount, onSuccess, onError, disabled = false }) => {
 
   const loadApplePayConfig = async () => {
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/payments/apple-pay-config`);
+              const response = await fetch(`https://carwash-backend-production.up.railway.app/api/payments/apple-pay-config`);
       const data = await response.json();
 
       if (data.success) {
@@ -58,7 +58,7 @@ const ApplePayButton = ({ amount, onSuccess, onError, disabled = false }) => {
     setError(null);
 
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/payments/apple-pay-checkout`, {
+              const response = await fetch(`https://carwash-backend-production.up.railway.app/api/payments/apple-pay-checkout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

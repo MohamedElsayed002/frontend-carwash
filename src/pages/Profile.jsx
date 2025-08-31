@@ -72,7 +72,7 @@ const Profile = () => {
       setQrLoading(true);
 
       // Fetch QR code data
-      const qrResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/package-qr-code`, {
+      const qrResponse = await fetch(`https://carwash-backend-production.up.railway.app/api/user/package-qr-code`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -87,7 +87,7 @@ const Profile = () => {
       }
 
       // Fetch package status
-      const statusResponse = await fetch(`${import.meta.env.VITE_API_BASE_URL}/user/package-status`, {
+      const statusResponse = await fetch(`https://carwash-backend-production.up.railway.app/api/user/package-status`, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -243,7 +243,7 @@ const Profile = () => {
                   <Loader2 className="w-8 h-8 animate-spin text-green-600" />
                   <span className="ml-3 text-gray-600">جاري تحميل QR Code...</span>
                 </div>
-              ) :  user.isPaid && qrCodeData && packageInfo.washesLeft > 0 ? (
+              ) : qrCodeData && packageInfo.washesLeft > 0 ? (
                 <div className="grid md:grid-cols-2 gap-6 items-center">
                   {/* QR Code */}
                   <div className="text-center">
@@ -404,7 +404,7 @@ const Profile = () => {
         )}
 
         {/* Packages Tab */}
-        {activeTab === 'packages' && user.isPaid &&  (
+        {activeTab === 'packages' && user.isPaid && (
           <div className="grid gap-8">
             <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
               <div className="text-center mb-8">

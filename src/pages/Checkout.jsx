@@ -65,7 +65,7 @@ const Checkout = () => {
         // Fetch user data from API as fallback
         try {
           const token = localStorage.getItem('frontend_token');
-          const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/profile`, {
+          const response = await fetch(`https://carwash-backend-production.up.railway.app/api/users/profile`, {
             headers: {
               'Authorization': `Bearer ${token}`
             }
