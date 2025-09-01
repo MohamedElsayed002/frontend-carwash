@@ -27,7 +27,9 @@ import {
   Loader2,
   Settings,
   Search,
-  Package
+  Package,
+  CreditCard,
+  Smartphone
 } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/footer/Footer';
@@ -39,6 +41,9 @@ const PackageDetails = () => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState('DB'); // Default to DB
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+
   useEffect(() => {
     fetchUserProfile();
   }, []);
@@ -111,7 +116,8 @@ const PackageDetails = () => {
       const checkoutData = {
         amount: packageData.basePrice,
         currency: 'SAR',
-        paymentMethod : "APPLEPAY",
+        paymentMethod: selectedPaymentMethod,
+        paymentType: selectedPaymentMethod === 'APPLEPAY' ? 'DB' : 'DB', // Both use DB for now, can be customized
         customer: {
           email: userData.email,
           givenName: userData.name,
@@ -432,6 +438,48 @@ const PackageDetails = () => {
                   </ul>
                 </div>
 
+                {/* Payment Method Selection */}
+                <div className="bg-blue-50 rounded-2xl p-6 mb-6">
+                  <h3 className="font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                    <CreditCard className="w-5 h-5 text-blue-600" />
+                    اختر طريقة الدفع
+                  </h3>
+
+                  <div className="space-y-3">
+                    <motion.button
+                      onClick={() => setSelectedPaymentMethod('DB')}
+                      className={`w-full p-4 rounded-xl border-2 transition-all duration-300 flex items-center justify-center gap-3 ${selectedPaymentMethod === 'DB'
+                        ? 'border-blue-500 bg-blue-100 text-blue-700'
+                        : 'border-gray-200 bg-white text-gray-600 hover:border-blue-300'
+                        }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <CreditCard className="w-5 h-5" />
+                      <div className="text-right">
+                        <div className="font-semibold">بطاقة ائتمان/خصم</div>
+                        <div className="text-sm opacity-75">Visa, Mastercard, مدى</div>
+                      </div>
+                    </motion.button>
+
+                    <motion.button
+                      onClick={() => setSelectedPaymentMethod('APPLEPAY')}
+                      className={`w-full p-4 rounded-xl border-2 transition-all duration-300 flex items-center justify-center gap-3 ${selectedPaymentMethod === 'APPLEPAY'
+                        ? 'border-green-500 bg-green-100 text-green-700'
+                        : 'border-gray-200 bg-white text-gray-600 hover:border-green-300'
+                        }`}
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Smartphone className="w-5 h-5" />
+                      <div className="text-right">
+                        <div className="font-semibold">Apple Pay</div>
+                        <div className="text-sm opacity-75">دفع سريع وآمن</div>
+                      </div>
+                    </motion.button>
+                  </div>
+                </div>
+
                 {/* Package Actions */}
                 <div className="space-y-3">
                   <motion.button
@@ -442,6 +490,9 @@ const PackageDetails = () => {
                   >
                     <ShoppingCart className="w-5 h-5" />
                     شراء الباقة
+                    <span className="text-sm opacity-90">
+                      ({selectedPaymentMethod === 'APPLEPAY' ? 'Apple Pay' : 'بطاقة ائتمان'})
+                    </span>
                     <ArrowRight className="w-5 h-5" />
                   </motion.button>
 
