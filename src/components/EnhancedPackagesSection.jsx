@@ -158,11 +158,7 @@ const EnhancedPackagesSection = () => {
   return (
     <>
       <div className="header-spacer"></div>
-      <PageHeader
-        title="باقاتنا المميزة"
-        subtitle="اختر الباقة المناسبة لك واستمتع بخصومات حصرية عند الشراء من التطبيق"
-        breadcrumbs={['الرئيسية', 'الباقات']}
-      />
+
 
       <section className="py-20 bg-gradient-to-br from-green-50 via-white to-green-100 relative overflow-hidden" dir="rtl">
         {/* خلفية زخرفية */}

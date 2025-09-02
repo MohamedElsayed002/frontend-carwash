@@ -28,7 +28,6 @@ import AIAssistant from './components/AIAssistant';
 
 // Page Components
 import About from './pages/About';
-import Services from './pages/Services';
 import Packages from './pages/Packages';
 import PackageDetails from './pages/PackageDetails';
 import BranchesPage from './pages/Branches';
@@ -99,9 +98,8 @@ function MainPage() {
       <Stats />
       <BranchesComponent />
       <Feedbacks />
-      <BranchesHeader />
-      <SingleBranch />
-      <BranchesMap />
+      {/* <SingleBranch /> */}
+      {/* <BranchesMap /> */}
       <ContactSection />
     </>
   );
@@ -170,7 +168,6 @@ function App() {
 
                   {/* Information Routes */}
                   <Route path="/about" element={<About />} />
-                  <Route path="/services" element={<Services />} />
                   <Route path="/contact" element={<Contact />} />
                   <Route path="/faq" element={<FAQ />} />
                   <Route path="/support" element={<Support />} />

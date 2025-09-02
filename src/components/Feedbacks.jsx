@@ -113,7 +113,7 @@ const FeedbackCard = ({ feedback, index }) => {
 
 
         {/* التعليق */}
-        <div className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3 sm:mb-4 group-hover:text-gray-800 transition-colors duration-300">
+        <div className="text-gray-700 text-center md:text-start text-sm sm:text-base leading-relaxed mb-3 sm:mb-4 group-hover:text-gray-800 transition-colors duration-300">
           "{feedback.comment}"
         </div>
 
@@ -178,32 +178,6 @@ const Feedbacks = () => {
           </p>
         </div>
 
-        {/* إحصائيات سريعة */}
-        <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 mb-8 sm:mb-12 lg:mb-16 transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-4 sm:translate-y-8 opacity-0'}`}>
-          <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg sm:shadow-xl border border-gray-100 text-center group hover:shadow-xl sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-2">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg">
-              <Star className="w-6 h-6 sm:w-8 sm:h-8" style={{ fill: 'white' }} />
-            </div>
-            <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">{averageRating.toFixed(1)}</div>
-            <div className="text-sm sm:text-base text-gray-600">متوسط التقييم</div>
-          </div>
-
-          <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg sm:shadow-xl border border-gray-100 text-center group hover:shadow-xl sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-2">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg">
-              <Users className="w-6 h-6 sm:w-8 sm:h-8" style={{ fill: 'white' }} />
-            </div>
-            <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">+{totalReviews}</div>
-            <div className="text-sm sm:text-base text-gray-600">تقييم إجمالي</div>
-          </div>
-
-          <div className="bg-white rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-lg sm:shadow-xl border border-gray-100 text-center group hover:shadow-xl sm:hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-1 sm:hover:-translate-y-2 sm:col-span-2 lg:col-span-1">
-            <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl sm:rounded-2xl flex items-center justify-center mx-auto mb-3 sm:mb-4 shadow-lg">
-              <Award className="w-6 h-6 sm:w-8 sm:h-8" style={{ fill: 'white' }} />
-            </div>
-            <div className="text-2xl sm:text-3xl font-bold text-gray-900 mb-1 sm:mb-2">+{recommendedCount}</div>
-            <div className="text-sm sm:text-base text-gray-600">يوصون بنا</div>
-          </div>
-        </div>
 
         {/* بطاقات التقييمات */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
@@ -221,9 +195,10 @@ const Feedbacks = () => {
             <p className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6">
               ساعد الآخرين في اتخاذ القرار الصحيح من خلال مشاركة تجربتك معنا
             </p>
-            <button className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm sm:text-base">
-              <Star className="w-4 h-4 sm:w-5 sm:h-5" style={{ fill: 'white' }} />
-              اكتب تقييمك
+            <button className="inline-flex flex-row items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl font-bold hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 text-sm sm:text-base">
+              <a href="/contact" className='text-white'>
+                اكتب تقييمك
+                </a>
             </button>
           </div>
         </div>

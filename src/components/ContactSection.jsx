@@ -86,7 +86,7 @@ const ContactSection = () => {
   const stats = [
     { icon: Users, value: '10K+', label: 'عميل راضي', color: 'from-green-500 to-green-600' },
     { icon: MessageCircle, value: 'متاح', label: 'دعم متواصل', color: 'from-green-500 to-green-600' },
-    { icon: Award, value: '4.9', label: 'تقييم متوسط', color: 'from-green-500 to-green-600' }
+    { icon: Award, value: '4.8', label: 'تقييم متوسط', color: 'from-green-500 to-green-600' }
   ];
 
   return (

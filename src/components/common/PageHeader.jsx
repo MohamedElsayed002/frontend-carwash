@@ -93,19 +93,6 @@ const PageHeader = ({
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
             <div 
               className={`bg-white/15 backdrop-blur-sm rounded-xl p-6 border border-white/20 cursor-pointer transform hover:scale-105 active:scale-95 transition-all duration-300 ${
-                hoveredItem === 'support-24-7' ? 'bg-white/25 border-white/40' : ''
-              }`}
-                              onClick={() => handleItemClick('دعم')}
-              onMouseEnter={() => setHoveredItem('support-24-7')}
-              onMouseLeave={() => setHoveredItem(null)}
-            >
-              <div className={`text-3xl font-bold text-white mb-2 transition-all duration-300 ${
-                hoveredItem === 'support-24-7' ? 'scale-110' : ''
-              }`}>7-11</div>
-              <div className="text-white/90 text-sm">ساعات العمل</div>
-            </div>
-            <div 
-              className={`bg-white/15 backdrop-blur-sm rounded-xl p-6 border border-white/20 cursor-pointer transform hover:scale-105 active:scale-95 transition-all duration-300 ${
                 hoveredItem === 'response-time' ? 'bg-white/25 border-white/40' : ''
               }`}
               onClick={() => handleItemClick('وقت الاستجابة')}
@@ -140,7 +127,7 @@ const PageHeader = ({
             >
               <div className={`text-3xl font-bold text-white mb-2 transition-all duration-300 ${
                 hoveredItem === 'support-branches' ? 'scale-110' : ''
-              }`}>+50</div>
+              }`}>+4</div>
               <div className="text-white/90 text-sm">فرع للدعم</div>
             </div>
           </div>
@@ -447,19 +434,7 @@ const PageHeader = ({
 
         {/* Stats Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-          <div 
-            className={`bg-white/15 backdrop-blur-sm rounded-xl p-6 border border-white/20 cursor-pointer transform hover:scale-105 active:scale-95 transition-all duration-300 ${
-              hoveredItem === 'service-24-7' ? 'bg-white/25 border-white/40' : ''
-            }`}
-                            onClick={() => handleItemClick('خدمة')}
-            onMouseEnter={() => setHoveredItem('service-24-7')}
-            onMouseLeave={() => setHoveredItem(null)}
-          >
-            <div className={`text-3xl font-bold text-white mb-2 transition-all duration-300 ${
-              hoveredItem === 'service-24-7' ? 'scale-110' : ''
-            }`}>7-11</div>
-            <div className="text-white/90 text-sm">ساعات العمل</div>
-          </div>
+       
           <div 
             className={`bg-white/15 backdrop-blur-sm rounded-xl p-6 border border-white/20 cursor-pointer transform hover:scale-105 active:scale-95 transition-all duration-300 ${
               hoveredItem === 'rating' ? 'bg-white/25 border-white/40' : ''
@@ -496,7 +471,7 @@ const PageHeader = ({
           >
             <div className={`text-lg font-bold text-white mb-2 transition-all duration-300 ${
               hoveredItem === 'branches' ? 'scale-110' : ''
-            }`}>فرع واحد</div>
+            }`}>اربع فروع </div>
             <div className="text-white/90 text-xs">حالياً وقريباً في جميع أنحاء المملكة</div>
           </div>
         </div>

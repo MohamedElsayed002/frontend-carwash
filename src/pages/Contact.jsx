@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { motion } from 'framer-motion';
 import { FaPhone, FaEnvelope, FaMapMarkerAlt, FaClock, FaWhatsapp, FaLinkedin, FaTwitter, FaFacebook, FaInstagram, FaCar, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import PageHeader from '../components/common/PageHeader';
+import { FaX } from 'react-icons/fa6';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -27,18 +28,18 @@ const Contact = () => {
     {
       icon: FaPhone,
       title: 'الهاتف',
-      value: '+966 50 123 4567',
-              subtitle: 'خدمة عملاء',
+      value: '+966 56 890 9183',
+      subtitle: 'خدمة عملاء',
       color: 'from-blue-500 to-blue-600',
       action: 'tel:+966501234567'
     },
     {
       icon: FaEnvelope,
       title: 'البريد الإلكتروني',
-      value: 'info@carwash.com',
+      value: 'info@paypasss.com',
       subtitle: 'رد خلال ساعتين',
       color: 'from-green-500 to-green-600',
-      action: 'mailto:info@carwash.com'
+      action: 'mailto:info@paypasss.com'
     },
     {
       icon: FaMapMarkerAlt,
@@ -47,14 +48,6 @@ const Contact = () => {
       subtitle: '4 فروع في الرياض',
       color: 'from-purple-500 to-purple-600',
       action: '#'
-    },
-    {
-      icon: FaClock,
-      title: 'ساعات العمل',
-      value: 'السبت - الخميس',
-      subtitle: '7:00 ص - 11:00 م',
-      color: 'from-orange-500 to-orange-600',
-      action: '#'
     }
   ];
 
@@ -62,26 +55,7 @@ const Contact = () => {
     {
       name: 'فرع الشمال',
       address: 'شارع الملك فهد، حي الشمال',
-      phone: '+966 50 123 4567',
-      hours: '7:00 ص - 11:00 م'
-    },
-    {
-      name: 'فرع الجنوب',
-      address: 'شارع الملك عبدالله، حي الجنوب',
-      phone: '+966 50 123 4568',
-      hours: '7:00 ص - 11:00 م'
-    },
-    {
-      name: 'فرع الشرق',
-      address: 'شارع الملك خالد، حي الشرق',
-      phone: '+966 50 123 4569',
-      hours: '7:00 ص - 11:00 م'
-    },
-    {
-      name: 'فرع الغرب',
-      address: 'شارع الملك سلمان، حي الغرب',
-      phone: '+966 50 123 4570',
-      hours: '7:00 ص - 11:00 م'
+      phone: '+966 56 890 9183'
     }
   ];
 
@@ -103,36 +77,35 @@ const Contact = () => {
 
   const socialMedia = [
     { icon: FaWhatsapp, name: 'WhatsApp', url: 'https://wa.me/966501234567', color: 'from-green-500 to-green-600' },
-    { icon: FaTwitter, name: 'Twitter', url: '#', color: 'from-blue-400 to-blue-500' },
-    { icon: FaFacebook, name: 'Facebook', url: '#', color: 'from-blue-600 to-blue-700' },
+    { icon: FaX, name: 'X', url: '#', color: 'from-black to-gray-900' },
     { icon: FaInstagram, name: 'Instagram', url: '#', color: 'from-pink-500 to-purple-600' }
   ];
 
   const validateForm = () => {
     const newErrors = {};
-    
+
     if (!formData.name.trim()) {
       newErrors.name = 'الاسم مطلوب';
     }
-    
+
     if (!formData.email.trim()) {
       newErrors.email = 'البريد الإلكتروني مطلوب';
     } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
       newErrors.email = 'البريد الإلكتروني غير صحيح';
     }
-    
+
     if (!formData.phone.trim()) {
       newErrors.phone = 'رقم الهاتف مطلوب';
     }
-    
+
     if (!formData.service) {
       newErrors.service = 'نوع الخدمة مطلوب';
     }
-    
+
     if (!formData.message.trim()) {
       newErrors.message = 'الرسالة مطلوبة';
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -143,7 +116,7 @@ const Contact = () => {
       ...prev,
       [name]: value
     }));
-    
+
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({
@@ -155,26 +128,26 @@ const Contact = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!validateForm()) {
       return;
     }
-    
+
     setIsSubmitting(true);
-    
+
     // Simulate API call
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitSuccess(true);
-    setFormData({
-      name: '',
-      email: '',
+      setFormData({
+        name: '',
+        email: '',
         phone: '',
         carType: '',
         service: '',
-      message: ''
-    });
-      
+        message: ''
+      });
+
       setTimeout(() => {
         setSubmitSuccess(false);
       }, 5000);
@@ -184,9 +157,9 @@ const Contact = () => {
   return (
     <>
       <Helmet>
-                        <title>اتصل بنا - شركة غسيل السيارات في الرياض | خدمة عملاء</title>
-                        <meta name="description" content="تواصل معنا للحصول على أفضل خدمات غسيل السيارات في الرياض. خدمة عملاء، 1 فرع في الرياض، احجز الآن!" />
-                        <meta name="keywords" content="اتصل بنا, غسيل سيارات الرياض, خدمة عملاء, فروع غسيل سيارات, احجز غسيل سيارات" />
+        <title>اتصل بنا - شركة غسيل السيارات في الرياض | خدمة عملاء</title>
+        <meta name="description" content="تواصل معنا للحصول على أفضل خدمات غسيل السيارات في الرياض. خدمة عملاء، 1 فرع في الرياض، احجز الآن!" />
+        <meta name="keywords" content="اتصل بنا, غسيل سيارات الرياض, خدمة عملاء, فروع غسيل سيارات, احجز غسيل سيارات" />
         <meta property="og:title" content="اتصل بنا - شركة غسيل السيارات في الرياض" />
         <meta property="og:description" content="تواصل معنا للحصول على أفضل خدمات غسيل السيارات في الرياض" />
         <meta property="og:type" content="website" />
@@ -195,7 +168,7 @@ const Contact = () => {
 
       <div className="header-spacer"></div>
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white">
-        <PageHeader 
+        <PageHeader
           title="اتصل بنا"
           subtitle="نحن هنا لمساعدتك في كل ما تحتاجه"
           breadcrumbs={['الرئيسية', 'اتصل بنا']}
@@ -215,7 +188,7 @@ const Contact = () => {
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-600"> لمساعدتك</span>
               </h1>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                فريقنا متاح دائماً للإجابة على استفساراتك وتقديم الدعم الذي تحتاجه. 
+                فريقنا متاح دائماً للإجابة على استفساراتك وتقديم الدعم الذي تحتاجه.
                 لا تتردد في التواصل معنا بأي طريقة تفضلها.
               </p>
             </motion.div>
@@ -225,9 +198,9 @@ const Contact = () => {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20"
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20"
             >
-            {contactInfo.map((info, index) => (
+              {contactInfo.map((info, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 30 }}
@@ -237,12 +210,12 @@ const Contact = () => {
                 >
                   <div className={`w-16 h-16 bg-gradient-to-r ${info.color} text-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg`}>
                     <info.icon className="w-8 h-8" />
-                </div>
+                  </div>
                   <h3 className="text-xl font-bold text-gray-800 mb-3">{info.title}</h3>
                   <p className="text-gray-600 mb-2 font-semibold">{info.value}</p>
                   <p className="text-gray-500 text-sm">{info.subtitle}</p>
                   {info.action && (
-                    <a 
+                    <a
                       href={info.action}
                       className="inline-block mt-4 text-green-600 hover:text-green-700 font-semibold transition-colors duration-300"
                     >
@@ -259,7 +232,7 @@ const Contact = () => {
         <section className="py-20 px-4 bg-gradient-to-r from-gray-50 to-white">
           <div className="max-w-7xl mx-auto">
             <div className="grid lg:grid-cols-2 gap-16">
-            {/* Contact Form */}
+              {/* Contact Form */}
               <motion.div
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -287,18 +260,17 @@ const Contact = () => {
                   </motion.div>
                 )}
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
-                  <div>
+                    <div>
                       <label className="block text-sm font-semibold text-gray-700 mb-2">الاسم الكامل *</label>
                       <input
                         type="text"
                         name="name"
                         value={formData.name}
                         onChange={handleInputChange}
-                        className={`w-full px-4 py-3 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${
-                          errors.name ? 'border-red-500' : 'border-gray-300'
-                        }`}
+                        className={`w-full px-4 py-3 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${errors.name ? 'border-red-500' : 'border-gray-300'
+                          }`}
                         placeholder="أدخل اسمك الكامل"
                       />
                       {errors.name && (
@@ -316,9 +288,8 @@ const Contact = () => {
                         name="phone"
                         value={formData.phone}
                         onChange={handleInputChange}
-                        className={`w-full px-4 py-3 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${
-                          errors.phone ? 'border-red-500' : 'border-gray-300'
-                        }`}
+                        className={`w-full px-4 py-3 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${errors.phone ? 'border-red-500' : 'border-gray-300'
+                          }`}
                         placeholder="+966 50 123 4567"
                       />
                       {errors.phone && (
@@ -337,9 +308,8 @@ const Contact = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleInputChange}
-                      className={`w-full px-4 py-3 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${
-                        errors.email ? 'border-red-500' : 'border-gray-300'
-                      }`}
+                      className={`w-full px-4 py-3 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${errors.email ? 'border-red-500' : 'border-gray-300'
+                        }`}
                       placeholder="example@email.com"
                     />
                     {errors.email && (
@@ -374,9 +344,8 @@ const Contact = () => {
                         name="service"
                         value={formData.service}
                         onChange={handleInputChange}
-                        className={`w-full px-4 py-3 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${
-                          errors.service ? 'border-red-500' : 'border-gray-300'
-                        }`}
+                        className={`w-full px-4 py-3 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 ${errors.service ? 'border-red-500' : 'border-gray-300'
+                          }`}
                       >
                         <option value="">اختر نوع الخدمة</option>
                         {services.map((service) => (
@@ -401,9 +370,8 @@ const Contact = () => {
                       value={formData.message}
                       onChange={handleInputChange}
                       rows="5"
-                      className={`w-full px-4 py-3 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 resize-none ${
-                        errors.message ? 'border-red-500' : 'border-gray-300'
-                      }`}
+                      className={`w-full px-4 py-3 border rounded-2xl focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-300 resize-none ${errors.message ? 'border-red-500' : 'border-gray-300'
+                        }`}
                       placeholder="اكتب رسالتك هنا..."
                     ></textarea>
                     {errors.message && (
@@ -503,7 +471,7 @@ const Contact = () => {
                   </div>
                   <h3 className="text-xl font-bold text-gray-800 group-hover:text-green-600 transition-colors duration-300">
                     {social.name}
-                    </h3>
+                  </h3>
                 </motion.a>
               ))}
             </div>

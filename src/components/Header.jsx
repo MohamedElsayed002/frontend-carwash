@@ -4,8 +4,6 @@ import {
   Menu, X, Phone, Mail, Star, Shield, ChevronDown, ChevronUp, User, LogIn, LogOut, Settings
 } from 'lucide-react';
 import logo from '../assets/logo.png';
-import googlePlayBadge from '../assets/google-play-badge.png';
-import appStoreBadge from '../assets/app-store-badge.png';
 import useAuth from '../useAuth';
 
 const Header = () => {
@@ -64,7 +62,7 @@ const Header = () => {
             </div>
             <div className="hidden sm:block">
               <h1 className="text-xl sm:text-2xl font-bold text-gray-900">PayPass</h1>
-              <p className="text-xs text-green-600 font-medium">غسيل السيارات الذكي</p>
+              <p className="text-xs text-green-600 font-medium">منصه إشتر اكات غسيل السيارات</p>
             </div>
           </Link>
 
@@ -92,19 +90,6 @@ const Header = () => {
             >
               الباقات
               {isActive('/packages') && (
-                <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-green-600 rounded-full"></div>
-              )}
-            </Link>
-
-            <Link
-              to="/services"
-              className={`relative font-semibold text-base transition-colors duration-200 ${isActive('/services')
-                ? 'text-green-600'
-                : 'text-gray-700 hover:text-green-600'
-                }`}
-            >
-              الخدمات
-              {isActive('/services') && (
                 <div className="absolute -bottom-1 left-0 right-0 h-0.5 bg-green-600 rounded-full"></div>
               )}
             </Link>

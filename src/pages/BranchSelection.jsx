@@ -325,69 +325,8 @@ const BranchSelection = () => {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 py-6">
-        {/* Generate QR Button - Top */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-center mb-6"
-        >
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-3xl p-6">
-            <div className="flex items-center justify-center mb-3">
-              <Package className="w-6 h-6 text-green-600 mr-2" />
-              <h3 className="text-xl font-bold text-gray-800">معلومات الباقة</h3>
-            </div>
-
-            {/* عرض معلومات QR الموجود */}
-            {qrData && (
-              <div className="bg-white rounded-xl p-4 mb-4 border border-green-200">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-                  <div className="text-center">
-                    <div className="text-green-600 font-bold">العميل</div>
-                    <div className="text-gray-700">{packageDetails.data.name}</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-green-600 font-bold">الباقة</div>
-                    <div className="text-gray-700">{packageDetails.data.package.name}</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-green-600 font-bold">الغسلات المتبقية</div>
-                    <div className="text-gray-700">{packageDetails.data.package.washes}</div>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <p className="text-gray-600 mb-4 max-w-2xl mx-auto text-sm">
-              اختر الفرع المناسب لك ثم اضغط على الزر أدناه لتأكيد الاختيار والمتابعة
-            </p>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleBranchSelection}
-              disabled={!selectedBranch || isGeneratingQR}
-              className={`px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-3 mx-auto ${!selectedBranch || isGeneratingQR
-                ? 'bg-gray-400 text-white cursor-not-allowed'
-                : 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-xl hover:shadow-2xl'
-                }`}
-            >
-              {isGeneratingQR ? (
-                <>
-                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                  <span>جاري تأكيد الاختيار...</span>
-                </>
-              ) : (
-                <>
-                  <MapPin className="w-5 h-5" style={{ fill: 'white' }} />
-                  <span>تأكيد اختيار الفرع</span>
-                  <FaArrowRight className="w-5 h-5" style={{ fill: 'white' }} />
-                </>
-              )}
-            </motion.button>
-          </div>
-        </motion.div>
-
-        <div className="grid lg:grid-cols-2 gap-6">
+        {/* Package Summary and Branch Selection Grid */}
+        <div className="grid lg:grid-cols-2 gap-6 mb-8">
           {/* Package Summary */}
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -550,12 +489,72 @@ const BranchSelection = () => {
                     </motion.div>
                   ))}
                 </div>
-
-
               </div>
             </div>
           </motion.div>
         </div>
+
+        {/* Branch Selection Button - Bottom */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="text-center"
+        >
+          <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-2 border-green-200 rounded-3xl p-6">
+            <div className="flex items-center justify-center mb-3">
+              <Package className="w-6 h-6 text-green-600 ml-3 -mt-3" />
+              <h3 className="text-xl font-bold text-gray-800">تأكيد اختيار الفرع</h3>
+            </div>
+
+            {/* عرض معلومات QR الموجود */}
+            {qrData && (
+              <div className="bg-white rounded-xl p-4 mb-4 border border-green-200">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                  <div className="text-center">
+                    <div className="text-green-600 font-bold">العميل</div>
+                    <div className="text-gray-700">{packageDetails.data.name}</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-green-600 font-bold">الباقة</div>
+                    <div className="text-gray-700">{packageDetails.data.package.name}</div>
+                  </div>
+                  <div className="text-center">
+                    <div className="text-green-600 font-bold">الغسلات المتبقية</div>
+                    <div className="text-gray-700">{packageDetails.data.package.washes}</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <p className="text-gray-600 mb-4 max-w-2xl mx-auto text-sm">
+              اختر الفرع المناسب لك ثم اضغط على الزر أدناه لتأكيد الاختيار والمتابعة
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={handleBranchSelection}
+              disabled={!selectedBranch || isGeneratingQR}
+              className={`px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-3 mx-auto ${!selectedBranch || isGeneratingQR
+                ? 'bg-gray-400 text-white cursor-not-allowed'
+                : 'bg-gradient-to-r from-green-500 to-green-600 text-white shadow-xl hover:shadow-2xl'
+                }`}
+            >
+              {isGeneratingQR ? (
+                <>
+                  <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                  <span>جاري تأكيد الاختيار...</span>
+                </>
+              ) : (
+                <>
+                  <MapPin className="w-5 h-5" style={{ fill: 'white' }} />
+                  <span>تأكيد اختيار الفرع</span>
+                  <FaArrowRight className="w-5 h-5" style={{ fill: 'white' }} />
+                </>
+              )}
+            </motion.button>
+          </div>
+        </motion.div>
       </div>
 
       {/* QR Modal */}

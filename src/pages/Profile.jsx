@@ -23,7 +23,10 @@ import {
   CheckCircle,
   ArrowRight,
   Loader2,
-  AlertTriangle
+  AlertTriangle,
+  Gift,
+  Receipt,
+  CreditCard
 } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import { useAuth } from '../useAuth';
@@ -41,6 +44,49 @@ const Profile = () => {
   const [qrCodeData, setQrCodeData] = useState(null);
   const [packageInfo, setPackageInfo] = useState(null);
   const [qrLoading, setQrLoading] = useState(false);
+  const [customerInfo, setCustomerInfo] = useState(null);
+
+  // Tips and Feedback state
+  const [currentStep, setCurrentStep] = useState('rating');
+  const [branchRating, setBranchRating] = useState(0);
+  const [employeeRating, setEmployeeRating] = useState(0);
+  const [ratingComment, setRatingComment] = useState('');
+  const [selectedTipAmount, setSelectedTipAmount] = useState(null);
+  const [customTipAmount, setCustomTipAmount] = useState('');
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
+  const [tipMessage, setTipMessage] = useState('');
+  const [showCardForm, setShowCardForm] = useState(false);
+  const [cardData, setCardData] = useState({
+    cardNumber: '',
+    cardHolder: '',
+    expiryDate: '',
+    cvv: '',
+    showCvv: false
+  });
+
+  const tipAmounts = [5, 10, 15, 20, 25, 30];
+
+  const paymentMethods = [
+    {
+      id: 'apple',
+      name: 'Apple Pay',
+      description: 'دفع سريع وآمن',
+      color: 'from-gray-800 to-gray-900',
+      bgColor: 'from-gray-50 to-gray-100',
+      isApplePay: true
+    },
+    {
+      id: 'credit',
+      name: 'بطاقة ائتمان',
+      icon: '💳',
+      description: 'فيزا، ماستركارد، مدى',
+      color: 'from-green-500 to-green-600',
+      bgColor: 'from-green-50 to-green-100',
+      isApplePay: false
+    }
+  ];
 
   useEffect(() => {
     if (!user) {
@@ -52,6 +98,33 @@ const Profile = () => {
     window.scrollTo(0, 0);
     fetchUserData();
   }, []);
+
+  useEffect(() => {
+    // Get customer info from localStorage
+    const orderDetails = JSON.parse(localStorage.getItem('orderDetails') || '{}');
+    const packageDetails = JSON.parse(localStorage.getItem('packageDetails') || '{}');
+    const qrCodeData = JSON.parse(localStorage.getItem('qrCodeData') || '{}');
+    const selectedBranch = JSON.parse(localStorage.getItem('selectedBranch') || '{}');
+
+    const customerInfoData = {
+      name: qrCodeData.customerName || orderDetails.customerName || user?.username || 'العميل',
+      phone: qrCodeData.customerPhone || orderDetails.customerPhone || user?.phone || '',
+      carType: qrCodeData.carType || orderDetails.carType || userPackages?.size || 'متوسط',
+      packageName: qrCodeData.packageName || packageDetails.name || userPackages?.name || 'الباقة الأساسية',
+      packageType: qrCodeData.packageType || packageDetails.type || 'basic',
+      branchName: qrCodeData.branchName || selectedBranch.name || orderDetails.branchName || 'الفرع الرئيسي',
+      branchAddress: qrCodeData.branchAddress || selectedBranch.address || '',
+      branchPhone: qrCodeData.branchPhone || selectedBranch.phone || '',
+      operationId: qrCodeData.operationId || orderDetails.orderId || '#' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+      remainingWashes: qrCodeData.remainingWashes || packageDetails.washes || userPackages?.washes || 1,
+      totalWashes: qrCodeData.totalWashes || packageDetails.washes || userPackages?.washes || 1,
+      price: qrCodeData.price || packageDetails.price || userPackages?.basePrice || 0,
+      startDate: qrCodeData.startDate || new Date().toISOString(),
+      expiryDate: qrCodeData.expiryDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+    };
+
+    setCustomerInfo(customerInfoData);
+  }, [user, userPackages]);
 
   const fetchUserData = async () => {
     try {
@@ -158,7 +231,8 @@ const Profile = () => {
   const tabs = [
     { id: 'qr-code', label: 'QR Code', icon: <QrCode className="w-5 h-5" /> },
     { id: 'profile', label: 'الملف الشخصي', icon: <User className="w-5 h-5" /> },
-    { id: 'packages', label: 'الباقات', icon: <Package className="w-5 h-5" /> }
+    { id: 'packages', label: 'الباقات', icon: <Package className="w-5 h-5" /> },
+    { id: 'feedback', label: 'التقييم والبقشيش', icon: <Star className="w-5 h-5" /> }
   ];
 
   if (loading) {
@@ -502,6 +576,388 @@ const Profile = () => {
                   </button>
                 </div>
               )}
+            </div>
+          </div>
+        )}
+
+        {/* Feedback Tab */}
+        {activeTab === 'feedback' && (
+          <div className="max-w-4xl mx-auto">
+            {/* Header */}
+            <div className="text-center mb-8">
+              <h3 className="text-3xl font-bold text-gray-800 mb-2">
+                {currentStep === 'rating' ? 'تقييم الخدمة' : 'البقشيش'}
+              </h3>
+              <p className="text-gray-600">
+                {currentStep === 'rating'
+                  ? 'ساعدنا في تحسين خدماتنا من خلال تقييمك'
+                  : 'أظهر تقديرك للخدمة الممتازة'
+                }
+              </p>
+            </div>
+
+            {/* Progress Steps */}
+            <div className="flex justify-center mb-8">
+              <div className="flex items-center space-x-4 rtl:space-x-reverse">
+                <div className={`flex items-center ${currentStep === 'rating' ? 'text-green-600' : 'text-gray-400'}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'rating' ? 'bg-green-100' : 'bg-gray-100'}`}>
+                    <Star className="w-4 h-4" />
+                  </div>
+                  <span className="mr-2 text-sm font-medium">التقييم</span>
+                </div>
+                <div className="w-8 h-0.5 bg-gray-200"></div>
+                <div className={`flex items-center ${currentStep === 'tips' ? 'text-green-600' : 'text-gray-400'}`}>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'tips' ? 'bg-green-100' : 'bg-gray-100'}`}>
+                    <Gift className="w-4 h-4" />
+                  </div>
+                  <span className="mr-2 text-sm font-medium">البقشيش</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Main Content */}
+              <div className="md:col-span-2">
+                {currentStep === 'rating' && (
+                  <div className="bg-white rounded-2xl shadow-lg p-8">
+                    {/* Branch Rating */}
+                    <div className="mb-8">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <MapPin className="w-5 h-5 text-green-600" />
+                        تقييم الفرع
+                      </h3>
+                      <div className="flex justify-center space-x-2 rtl:space-x-reverse mb-4">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <button
+                            key={star}
+                            onClick={() => setBranchRating(star)}
+                            className={`text-3xl transition-colors ${star <= branchRating ? 'text-yellow-400' : 'text-gray-300'
+                              }`}
+                          >
+                            ★
+                          </button>
+                        ))}
+                      </div>
+                      <p className="text-center text-sm text-gray-600">
+                        {branchRating === 0 && 'اضغط على النجوم للتقييم'}
+                        {branchRating === 1 && 'سيء جداً'}
+                        {branchRating === 2 && 'سيء'}
+                        {branchRating === 3 && 'مقبول'}
+                        {branchRating === 4 && 'جيد'}
+                        {branchRating === 5 && 'ممتاز'}
+                      </p>
+                    </div>
+
+                    {/* Employee Rating */}
+                    <div className="mb-8">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <User className="w-5 h-5 text-blue-600" />
+                        تقييم الموظف
+                      </h3>
+                      <div className="flex justify-center space-x-2 rtl:space-x-reverse mb-4">
+                        {[1, 2, 3, 4, 5].map((star) => (
+                          <button
+                            key={star}
+                            onClick={() => setEmployeeRating(star)}
+                            className={`text-3xl transition-colors ${star <= employeeRating ? 'text-yellow-400' : 'text-gray-300'
+                              }`}
+                          >
+                            ★
+                          </button>
+                        ))}
+                      </div>
+                      <p className="text-center text-sm text-gray-600">
+                        {employeeRating === 0 && 'اضغط على النجوم للتقييم (اختياري)'}
+                        {employeeRating === 1 && 'سيء جداً'}
+                        {employeeRating === 2 && 'سيء'}
+                        {employeeRating === 3 && 'مقبول'}
+                        {employeeRating === 4 && 'جيد'}
+                        {employeeRating === 5 && 'ممتاز'}
+                      </p>
+                    </div>
+
+                    {/* Comment */}
+                    <div className="mb-6">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        تعليقك (اختياري)
+                      </label>
+                      <textarea
+                        value={ratingComment}
+                        onChange={(e) => setRatingComment(e.target.value)}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+                        rows="4"
+                        placeholder="اكتب تعليقك هنا..."
+                      />
+                    </div>
+
+                    <button
+                      onClick={() => setCurrentStep('tips')}
+                      className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-6 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                    >
+                      التالي: البقشيش
+                      <ArrowRight className="w-5 h-5 mr-2" />
+                    </button>
+                  </div>
+                )}
+
+                {currentStep === 'tips' && (
+                  <div className="bg-white rounded-2xl shadow-lg p-8">
+                    {/* Tip Amount Selection */}
+                    <div className="mb-8">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <Gift className="w-5 h-5 text-green-600" />
+                        اختر مبلغ البقشيش
+                      </h3>
+                      <div className="grid grid-cols-3 gap-3 mb-4">
+                        {tipAmounts.map((amount) => (
+                          <button
+                            key={amount}
+                            onClick={() => setSelectedTipAmount(amount)}
+                            className={`p-4 rounded-lg border-2 transition-all ${selectedTipAmount === amount
+                              ? 'border-green-500 bg-green-50 text-green-700'
+                              : 'border-gray-200 hover:border-green-300'
+                              }`}
+                          >
+                            <div className="text-lg font-semibold">{amount} ريال</div>
+                          </button>
+                        ))}
+                      </div>
+
+                      <div className="mb-4">
+                        <label className="block text-sm font-medium text-gray-700 mb-2">
+                          أو اكتب مبلغ مخصص
+                        </label>
+                        <input
+                          type="number"
+                          value={customTipAmount}
+                          onChange={(e) => {
+                            setCustomTipAmount(e.target.value);
+                            setSelectedTipAmount(null);
+                          }}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                          placeholder="أدخل المبلغ"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Tip Message */}
+                    <div className="mb-8">
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        رسالة البقشيش (اختياري)
+                      </label>
+                      <textarea
+                        value={tipMessage}
+                        onChange={(e) => setTipMessage(e.target.value)}
+                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent resize-none"
+                        rows="3"
+                        placeholder="اكتب رسالة للموظف..."
+                      />
+                    </div>
+
+                    {/* Payment Method */}
+                    <div className="mb-6">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                        <CreditCard className="w-5 h-5 text-green-600" />
+                        طريقة الدفع
+                      </h3>
+                      <div className="grid grid-cols-1 gap-3">
+                        {paymentMethods.map((method) => (
+                          <button
+                            key={method.id}
+                            onClick={() => handleMethodSelect(method.id)}
+                            className={`p-4 rounded-lg border-2 transition-all text-right ${selectedPaymentMethod === method.id
+                              ? 'border-green-500 bg-green-50'
+                              : 'border-gray-200 hover:border-green-300'
+                              }`}
+                          >
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <span className="text-2xl">{method.icon}</span>
+                                <div>
+                                  <div className="font-semibold text-gray-800">{method.name}</div>
+                                  <div className="text-sm text-gray-600">{method.description}</div>
+                                </div>
+                              </div>
+                              {selectedPaymentMethod === method.id && (
+                                <CheckCircle className="w-5 h-5 text-green-600" />
+                              )}
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    {/* Card Form */}
+                    {showCardForm && (
+                      <div className="mb-6 p-4 bg-gray-50 rounded-lg">
+                        <div className="grid grid-cols-2 gap-4">
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              رقم البطاقة
+                            </label>
+                            <input
+                              type="text"
+                              value={cardData.cardNumber}
+                              onChange={(e) => handleCardInputChange('cardNumber', formatCardNumber(e.target.value))}
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                              placeholder="0000 0000 0000 0000"
+                              maxLength="19"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              اسم حامل البطاقة
+                            </label>
+                            <input
+                              type="text"
+                              value={cardData.cardHolder}
+                              onChange={(e) => handleCardInputChange('cardHolder', e.target.value)}
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                              placeholder="الاسم كما يظهر على البطاقة"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              تاريخ الانتهاء
+                            </label>
+                            <input
+                              type="text"
+                              value={cardData.expiryDate}
+                              onChange={(e) => handleCardInputChange('expiryDate', e.target.value)}
+                              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                              placeholder="MM/YY"
+                              maxLength="5"
+                            />
+                          </div>
+                          <div>
+                            <label className="block text-sm font-medium text-gray-700 mb-2">
+                              رمز الأمان
+                            </label>
+                            <div className="relative">
+                              <input
+                                type={cardData.showCvv ? "text" : "password"}
+                                value={cardData.cvv}
+                                onChange={(e) => handleCardInputChange('cvv', e.target.value)}
+                                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                                placeholder="CVV"
+                                maxLength="4"
+                              />
+                              <button
+                                type="button"
+                                onClick={() => handleCardInputChange('showCvv', !cardData.showCvv)}
+                                className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                              >
+                                {cardData.showCvv ? '👁️' : '👁️‍🗨️'}
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    <button
+                      onClick={() => setShowThankYou(true)}
+                      className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-6 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                      disabled={isProcessing}
+                    >
+                      {isProcessing ? (
+                        <>
+                          <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+                          جاري المعالجة...
+                        </>
+                      ) : (
+                        'إرسال البقشيش'
+                      )}
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Sidebar */}
+              <div className="space-y-6">
+                {/* Service Summary */}
+                <div className="bg-white rounded-2xl shadow-lg p-6">
+                  <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
+                    <Receipt className="w-5 h-5 text-green-600" />
+                    ملخص الخدمة
+                  </h3>
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">الباقة:</span>
+                      <span className="font-semibold">{customerInfo?.packageName || userPackages?.name || 'الباقة الأساسية'}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">الفرع:</span>
+                      <span className="font-semibold">{customerInfo?.branchName || 'الفرع الرئيسي'}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">نوع السيارة:</span>
+                      <span className="font-semibold">{customerInfo?.carType || userPackages?.size || 'متوسط'}</span>
+                    </div>
+                    <div className="flex items-center justify-between text-sm">
+                      <span className="text-gray-600">رقم العملية:</span>
+                      <span className="font-mono text-xs bg-gray-100 px-2 py-1 rounded">
+                        {customerInfo?.operationId || '#' + Math.random().toString(36).substr(2, 9).toUpperCase()}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Current Step Info */}
+                <div className="bg-gradient-to-r from-green-500 to-green-600 rounded-2xl p-6 text-white">
+                  <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+                    {currentStep === 'rating' ? <Star className="w-5 h-5" /> : <Gift className="w-5 h-5" />}
+                    {currentStep === 'rating' ? 'تقييم الخدمة' : 'البقشيش'}
+                  </h3>
+                  <p className="text-sm opacity-90">
+                    {currentStep === 'rating'
+                      ? 'ساعدنا في تحسين خدماتنا من خلال تقييمك للفرع والموظف'
+                      : 'أظهر تقديرك للخدمة الممتازة من خلال البقشيش'
+                    }
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Thank You Modal */}
+        {showThankYou && (
+          <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl shadow-xl p-8 max-w-md w-full mx-4 text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-6">
+                <CheckCircle className="w-8 h-8 text-green-600" />
+              </div>
+
+              <h2 className="text-2xl font-bold text-gray-800 mb-4">شكراً لك!</h2>
+              <p className="text-gray-600 mb-6">
+                تم حفظ تقييمك وبقشيشك بنجاح. نتمنى أن تكون قد استمتعت بخدمتنا!
+              </p>
+
+              <button
+                onClick={() => {
+                  setShowThankYou(false);
+                  setCurrentStep('rating');
+                  setBranchRating(0);
+                  setEmployeeRating(0);
+                  setRatingComment('');
+                  setSelectedTipAmount(null);
+                  setCustomTipAmount('');
+                  setSelectedPaymentMethod(null);
+                  setTipMessage('');
+                  setShowCardForm(false);
+                  setCardData({
+                    cardNumber: '',
+                    cardHolder: '',
+                    expiryDate: '',
+                    cvv: '',
+                    showCvv: false
+                  });
+                }}
+                className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-6 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl"
+              >
+                العودة للصفحة الرئيسية
+              </button>
             </div>
           </div>
         )}

@@ -21,8 +21,8 @@ const Footer = () => {
             <div className="flex items-center gap-3 lg:gap-4 mb-6 lg:mb-8">
               <Link className="group" to="/">
                 <div className="relative">
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-xl lg:rounded-2xl bg-gradient-to-br from-white to-gray-100 flex items-center justify-center border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-300 group-hover:scale-105">
-                    <img alt="PayPass Logo" className="w-7 h-7 sm:w-10 sm:h-10 lg:w-12 lg:h-12 object-contain" src={logo} />
+                  <div className="w-20 h-20  rounded-xl lg:rounded-2xl bg-gradient-to-br from-white to-gray-100 flex items-center justify-center border border-white/50 shadow-xl hover:shadow-2xl transition-all duration-300 group-hover:scale-105">
+                    <img alt="PayPass Logo" className="w-16 h-16  object-contain" src={logo} />
                   </div>
                   <div className="absolute -top-1 -right-1 lg:-top-1.5 lg:-right-1.5 w-4 h-4 lg:w-6 lg:h-6 bg-gray-500 rounded-full flex items-center justify-center shadow-lg border-2 border-white">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone w-2 h-2 lg:w-3 lg:h-3 text-white" aria-hidden="true">
@@ -33,8 +33,10 @@ const Footer = () => {
               </Link>
               <Link className="group" to="/">
                 <div>
-                  <h2 className="text-white font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl mb-1 lg:mb-2 tracking-wide group-hover:text-gray-200 transition-colors">PayPass</h2>
-                  <p className="text-gray-300 font-semibold text-sm sm:text-base lg:text-lg group-hover:text-gray-100 transition-colors">غسيل السيارات الذكي</p>
+                  <h2 className="text-white font-bold text-xl sm:text-2xl lg:text-3xl xl:text-4xl mb-1 lg:mb-2 tracking-wide group-hover:text-gray-200 transition-colors text-center">PayPass</h2>
+                  <p className="text-gray-300 font-semibold text-sm sm:text-base lg:text-lg group-hover:text-gray-100 transition-colors">
+                    منصه إشتر اكات غسيل السيارات
+                  </p>
                 </div>
               </Link>
             </div>
@@ -105,12 +107,20 @@ const Footer = () => {
             </div>
             <Link className="group order-3" to="/">
               <div className="flex items-center gap-2 lg:gap-3">
-                <div className="w-10 h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14 bg-gradient-to-br from-white to-gray-100 rounded-xl lg:rounded-2xl flex items-center justify-center shadow-xl border border-white/40 group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300">
-                  <img alt="PayPass Logo" className="w-6 h-6 lg:w-8 lg:h-8 xl:w-10 xl:h-10 object-contain" src={logo} />
+                <div className="hidden md:flex w-10 h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14 
+    bg-gradient-to-br from-white to-gray-100 rounded-xl lg:rounded-2xl 
+    items-center justify-center shadow-xl border border-white/40 
+    group-hover:shadow-2xl group-hover:scale-105 transition-all duration-300">
+                  <img
+                    alt="PayPass Logo"
+                    className="max-w-[70%] max-h-[70%] object-contain"
+                    src={logo}
+                  />
                 </div>
+
                 <div className="hidden lg:block">
                   <h4 className="text-white font-bold text-base lg:text-lg group-hover:text-gray-200 transition-colors">PayPass</h4>
-                  <p className="text-gray-300 text-sm lg:text-base group-hover:text-gray-100 transition-colors">غسيل السيارات الذكي</p>
+                  <p className="text-gray-300 text-sm lg:text-base group-hover:text-gray-100 transition-colors">منصه إشتر اكات غسيل السيارات</p>
                 </div>
               </div>
             </Link>

@@ -352,8 +352,7 @@ const PaymentForm = () => {
                     </button>
 
                     <h1 className="text-3xl font-bold text-gray-900 mb-4">
-                        <CreditCard className="w-8 h-8 inline mr-3 text-green-600" />
-                        صفحة الدفع الآمن
+                        صفحة الدفع 
                     </h1>
 
                     <p className="text-gray-600 max-w-2xl mx-auto">
@@ -370,9 +369,8 @@ const PaymentForm = () => {
                     <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
                         {/* Payment Status Notice */}
                         {userPaymentStatus === false && (
-                            <div className="flex items-center justify-center mb-6 p-4 bg-blue-50 rounded-xl border border-blue-200">
-                                <AlertCircle className="w-5 h-5 text-blue-600 mr-3" />
-                                <span className="text-blue-800 font-medium">
+                            <div className="flex items-center justify-center mb-6 p-4 bg-gray-100 rounded-xl border ">
+                                <span className="text-gray-600 font-medium">
                                     مرحباً {userData?.name}! يرجى إتمام عملية الدفع للوصول إلى الخدمة
                                 </span>
                             </div>
@@ -380,9 +378,8 @@ const PaymentForm = () => {
 
                         {/* Security Notice */}
                         <div className="flex items-center justify-center mb-6 p-4 bg-green-50 rounded-xl border border-green-200">
-                            <Shield className="w-5 h-5 text-green-600 mr-3" />
                             <span className="text-green-800 font-medium">
-                                الدفع آمن ومشفر - HyperPay
+                                الدفع آمن ومشفر 
                             </span>
                         </div>
 
@@ -394,9 +391,6 @@ const PaymentForm = () => {
                                         <h3 className="text-lg font-semibold text-gray-800 mb-2">
                                             نموذج الدفع
                                         </h3>
-                                        <p className="text-sm text-gray-600">
-                                            معرف الجلسة: {checkoutId}
-                                        </p>
                                     </div>
 
                                     {/* Payment Form Button */}
@@ -405,7 +399,6 @@ const PaymentForm = () => {
                                             onClick={handleOpenPaymentForm}
                                             className="inline-flex items-center bg-green-600 text-white px-8 py-4 rounded-xl font-semibold hover:bg-green-700 transition-colors shadow-lg hover:shadow-xl"
                                         >
-                                            <CreditCard className="w-5 h-5 mr-3" />
                                             فتح نموذج الدفع
                                         </button>
                                         <p className="text-xs text-gray-500 mt-3">
@@ -415,19 +408,6 @@ const PaymentForm = () => {
                                 </div>
                             )}
 
-                            {/* Payment Instructions */}
-                            <div className="bg-blue-50 border border-blue-200 rounded-xl p-6">
-                                <h4 className="font-semibold text-blue-800 mb-3 flex items-center">
-                                    <AlertCircle className="w-5 h-5 mr-2" />
-                                    تعليمات الدفع
-                                </h4>
-                                <ul className="text-sm text-blue-700 space-y-2">
-                                    <li>• تأكد من صحة بيانات البطاقة قبل الإرسال</li>
-                                    <li>• يمكنك استخدام بطاقات VISA أو MasterCard أو MADA</li>
-                                    <li>• ستتم إعادة توجيهك إلى صفحة النتيجة بعد إتمام الدفع</li>
-                                    <li>• في حالة وجود أي مشكلة، تواصل مع خدمة العملاء</li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </motion.div>

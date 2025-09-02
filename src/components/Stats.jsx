@@ -21,10 +21,10 @@ const Stats = () => {
     if (isVisible) {
       const timer = setTimeout(() => {
         setCounters({
-          branches: 1,
+          branches: 4,
           rating: 4.8,
           cars: 679,
-          customers: 679
+          customers: "10K"
         });
       }, 500);
 

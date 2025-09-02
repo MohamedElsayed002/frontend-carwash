@@ -34,6 +34,10 @@ import {
 import Header from '../components/Header';
 import Footer from '../components/footer/Footer';
 import { hyperpayAPI } from '../api-hyperpay-fixed';
+import applePayImage from '../../public/assets/apple-pay.png'
+import visaImage from '../../public/assets/Visa.png'
+import mastercardImage from '../../public/assets/mastercard.png'
+import madaImage from '../../public/assets/Mada.png'
 
 const PackageDetails = () => {
   const navigate = useNavigate();
@@ -71,7 +75,7 @@ const PackageDetails = () => {
           setError('لا توجد باقة نشطة');
         }
       } else {
-        setError(data.message || 'فشل في تحميل بيانات الملف الشخصي');
+        setError(data.message || 'قم بتسجيل الدخول من فضلك اولا');
       }
     } catch (error) {
       console.error('Error fetching user profile:', error);
@@ -114,7 +118,7 @@ const PackageDetails = () => {
 
       // Step 1: Prepare checkout with HyperPay
       const checkoutData = {
-        amount: packageData.basePrice,
+        amount: 0.05,
         currency: 'SAR',
         paymentMethod: selectedPaymentMethod,
         paymentType: selectedPaymentMethod === 'APPLEPAY' ? 'DB' : 'DB', // Both use DB for now, can be customized
@@ -195,6 +199,8 @@ const PackageDetails = () => {
     );
   }
 
+  console.log('packageData',packageData)
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
       <Header />
@@ -220,7 +226,7 @@ const PackageDetails = () => {
             animate={{ opacity: 1, y: 0 }}
             className="bg-white rounded-3xl shadow-xl p-8 mb-8"
           >
-            <div className="flex flex-col lg:flex-row items-start lg:items-center gap-6">
+            <div className="flex flex-col justify-center items-center lg:flex-row lg:items-center gap-6">
               {/* Package Icon */}
               <div className="w-20 h-20 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-2xl flex items-center justify-center shadow-lg">
                 <Crown className="w-10 h-10" />
@@ -235,29 +241,36 @@ const PackageDetails = () => {
                     متاحة للشراء
                   </span>
                 </div>
-                <p className="text-gray-600 text-lg mb-4">
+                <p className="text-gray-600 text-center md:text-right text-lg mb-4">
                   {packageData.name} - {packageData.washes} غسلة
                 </p>
 
-                {/* Package Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-y-4 gap-x-6 justify-items-center">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600">{packageData.washes}</div>
-                    <div className="text-sm text-gray-600">عدد الغسلات</div>
+                    <div className="text-lg sm:text-xl font-bold text-green-600">{packageData.washes}</div>
+                    <div className="text-xs sm:text-sm text-gray-600">عدد الغسلات</div>
                   </div>
+
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">{packageData.savings}</div>
-                    <div className="text-sm text-gray-600">ريال توفير</div>
+                    <div className="text-lg sm:text-xl font-bold text-purple-600">{packageData.savings}</div>
+                    <div className="text-xs sm:text-sm text-gray-600">ريال توفير</div>
                   </div>
+
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-orange-600">
-                      {packageData.size === 'small' ? 'صغيرة' :
-                        packageData.size === 'medium' ? 'متوسطة' :
-                          packageData.size === 'large' ? 'كبيرة' : packageData.size}
+                    <div className="text-lg sm:text-xl font-bold text-orange-600">
+                      {packageData.size === "small"
+                        ? "صغيرة"
+                        : packageData.size === "medium"
+                          ? "متوسطة"
+                          : packageData.size === "large"
+                            ? "كبيرة"
+                            : packageData.size}
                     </div>
-                    <div className="text-sm text-gray-600">حجم السيارة</div>
+                    <div className="text-xs sm:text-sm text-gray-600">حجم السيارة</div>
                   </div>
+
                 </div>
+
               </div>
             </div>
           </motion.div>
@@ -309,19 +322,19 @@ const PackageDetails = () => {
                       </div>
 
                       <div className="space-y-3">
-                        <div className="flex justify-between">
+                        <div className="flex justify-between items-center md:items-start">
                           <span className="text-gray-600">الاسم:</span>
                           <span className="font-semibold text-gray-900">{userData.name}</span>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between items-center md:items-start">
                           <span className="text-gray-600">اسم المستخدم:</span>
                           <span className="font-semibold text-gray-900">{userData.username}</span>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between items-center md:items-start">
                           <span className="text-gray-600">البريد الإلكتروني:</span>
-                          <span className="font-semibold text-gray-900">{userData.email}</span>
+                          <span className="font-semibold text-gray-900 text-nowrap">..{userData.email.substring(0,10)}</span>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between items-center md:items-start">
                           <span className="text-gray-600">رقم الهاتف:</span>
                           <span className="font-semibold text-gray-900">{userData.phone}</span>
                         </div>
@@ -335,25 +348,25 @@ const PackageDetails = () => {
                       </div>
 
                       <div className="space-y-3">
-                        <div className="flex justify-between">
+                        <div className="flex justify-between items-center md:items-start">
                           <span className="text-gray-600">نوع الحساب:</span>
                           <span className="font-semibold text-gray-900">
                             {userData.role === 'user' ? 'مستخدم عادي' : userData.role}
                           </span>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between items-center md:items-start">
                           <span className="text-gray-600">تاريخ الإنشاء:</span>
                           <span className="font-semibold text-gray-900">
-                            {new Date(userData.createdAt).toLocaleDateString('ar-SA')}
+                            {new Date(userData.createdAt).toLocaleDateString('en-US')}
                           </span>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between items-center md:items-start">
                           <span className="text-gray-600">آخر تحديث:</span>
                           <span className="font-semibold text-gray-900">
-                            {new Date(userData.updatedAt).toLocaleDateString('ar-SA')}
+                            {new Date(userData.updatedAt).toLocaleDateString('en-US')}
                           </span>
                         </div>
-                        <div className="flex justify-between">
+                        <div className="flex justify-between items-center md:items-start">
                           <span className="text-gray-600">عدد السيارات:</span>
                           <span className="font-semibold text-gray-900">{userData.cars?.length || 0}</span>
                         </div>
@@ -451,10 +464,15 @@ const PackageDetails = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <CreditCard className="w-5 h-5" />
+                      <div>
+                      </div>
                       <div className="text-right">
-                        <div className="font-semibold">بطاقة ائتمان/خصم</div>
-                        <div className="text-sm opacity-75">Visa, Mastercard, مدى</div>
+                        <div className="font-semibold">بطاقة ائتمان</div>
+                        <div className="text-sm opacity-75 flex">
+                          <img src={visaImage} className='w-10 h-10 object-contain' />
+                          <img src={mastercardImage} className='w-10 h-10 object-contain' />
+                          <img src={madaImage} className='w-10 h-10 object-contain' />
+                        </div>
                       </div>
                     </motion.button>
 
@@ -467,8 +485,8 @@ const PackageDetails = () => {
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <Smartphone className="w-5 h-5" />
-                      <div className="text-right">
+                      <img src={applePayImage} className='w-12 h-12 object-contain' />
+                      <div className="text-right -mt-3">
                         <div className="font-semibold">Apple Pay</div>
                         <div className="text-sm opacity-75">دفع سريع وآمن</div>
                       </div>
