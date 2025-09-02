@@ -239,14 +239,14 @@ const EnhancedPackagesSection = () => {
 
           {/* الباقات */}
           {!loading && !error && packages.length > 0 && (
-            <div className={`grid md:grid-cols-2 lg:grid-cols-4 gap-8 transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
+            <div className={`grid md:grid-cols-2 lg:grid-cols-4  gap-8 transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'}`}>
               {packages.map((packageData) => {
                 const PackageIcon = getPackageIcon(packageData.name);
                 const isPopular = packageData.popular;
                 const isVIP = packageData.name.includes('VIP') || packageData.name.includes('vip');
 
                 return (
-                  <div key={packageData._id} className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 flex flex-col h-full border border-gray-100 relative overflow-hidden">
+                  <div key={packageData._id} className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 flex flex-col  items-center w-full h-full border border-gray-100 relative overflow-hidden">
                     {/* خلفية زخرفية */}
                     <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-green-100 to-transparent rounded-full -translate-y-10 translate-x-10 group-hover:scale-150 transition-all duration-500"></div>
 
@@ -323,26 +323,26 @@ const EnhancedPackagesSection = () => {
                       <h4 className="text-lg font-bold text-gray-800 mb-4 text-center">المميزات:</h4>
                       <ul className="space-y-3 text-sm text-gray-600">
                         {packageData.features.map((feature, featureIndex) => (
-                          <li key={featureIndex} className="flex items-start gap-3">
+                          <li key={featureIndex} className="flex flex-row items-start gap-3">
                             <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" style={{ fill: 'white' }} />
                             <span>{feature}</span>
                           </li>
                         ))}
-                        <li className="flex items-start gap-3">
+                        <li className="flex items-start gap-3 flex-row">
                           <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" style={{ fill: 'white' }} />
                           <span>{packageData.paidWashes} غسلات مدفوعة</span>
                         </li>
                         {packageData.freeWashes > 0 && (
-                          <li className="flex items-start gap-3">
+                          <li className="flex items-start gap-3 flex-row">
                             <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" style={{ fill: 'white' }} />
                             <span>{packageData.freeWashes} غسلة مجانية</span>
                           </li>
                         )}
-                        <li className="flex items-start gap-3">
+                        <li className="flex items-start gap-3 flex-row">
                           <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" style={{ fill: 'white' }} />
                           <span>صالح لمدة {packageData.duration} يوم</span>
                         </li>
-                        <li className="flex items-start gap-3">
+                        <li className="flex items-start gap-3 flex-row">
                           <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" style={{ fill: 'white' }} />
                           <span>ضمان الجودة</span>
                         </li>

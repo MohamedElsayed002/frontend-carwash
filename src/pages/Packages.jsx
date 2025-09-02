@@ -299,28 +299,28 @@ const Packages = () => {
                     {/* مميزات الباقة */}
                     <div className="mb-8 flex-grow">
                       <h4 className="text-lg font-bold text-gray-800 mb-4 text-center">المميزات:</h4>
-                      <ul className="space-y-3 text-sm text-gray-600">
+                      <ul className="space-y-3 flex justify-center items-center md:items-start flex-col text-sm text-gray-600">
                         {pkg.features && pkg.features.map((feature, index) => (
-                          <li key={index} className="flex items-start gap-3">
+                          <li key={index} className="flex items-start flex-row gap-3">
                             <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" style={{ fill: 'white' }} />
                             <span>{feature}</span>
                           </li>
                         ))}
-                        <li className="flex items-start gap-3">
+                        <li className="flex items-start gap-3 flex-row">
                           <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" style={{ fill: 'white' }} />
                           <span>{pkg.paidWashes} غسلات مدفوعة</span>
                         </li>
                         {pkg.freeWashes > 0 && (
-                          <li className="flex items-start gap-3">
+                          <li className="flex items-start gap-3 flex-row">
                             <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" style={{ fill: 'white' }} />
                             <span>{pkg.freeWashes} غسلة مجانية</span>
                           </li>
                         )}
-                        <li className="flex items-start gap-3">
+                        <li className="flex items-start gap-3 flex-row">
                           <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" style={{ fill: 'white' }} />
                           <span>صالح لمدة {pkg.duration} يوم</span>
                         </li>
-                        <li className="flex items-start gap-3">
+                        <li className="flex items-start gap-3 flex-row">
                           <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" style={{ fill: 'white' }} />
                           <span>ضمان الجودة</span>
                         </li>

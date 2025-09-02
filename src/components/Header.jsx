@@ -50,7 +50,7 @@ const Header = () => {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
+    <header className={`fixed py-5 top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
       ? 'bg-white/95 backdrop-blur-md shadow-lg border-b border-green-200'
       : 'bg-white/90 backdrop-blur-sm shadow-sm'
       }`}>
@@ -240,19 +240,21 @@ const Header = () => {
           {/* زر القائمة - للموبايل */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="lg:hidden p-2 rounded-lg bg-green-50 hover:bg-green-100 transition-colors"
+            className="lg:hidden w-10 h-10 flex items-center justify-center bg-green-50"
           >
             {isMobileMenuOpen ? (
-              <X className="w-6 h-6 text-green-600" />
+              <X className="w-6 h-6 text-white" />
             ) : (
-              <Menu className="w-6 h-6 text-green-600" />
+              <Menu className="w-6 h-6 text-white" />
             )}
           </button>
+
+
         </div>
 
         {/* القائمة المنسدلة - للموبايل */}
         {isMobileMenuOpen && (
-          <div className="lg:hidden bg-white border-t border-green-200 shadow-lg">
+          <div className="lg:hidden bg-white border-t mt-4 border-green-200 shadow-lg">
             <div className="px-4 py-6 space-y-4">
 
               {/* أيقونات التطبيقات */}
@@ -406,6 +408,7 @@ const Header = () => {
             </div>
           </div>
         )}
+
       </div>
     </header>
   );

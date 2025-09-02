@@ -428,20 +428,6 @@ const PaymentForm = () => {
                                     <li>• في حالة وجود أي مشكلة، تواصل مع خدمة العملاء</li>
                                 </ul>
                             </div>
-
-                            {/* Test Cards Info */}
-                            <div className="bg-yellow-50 border border-yellow-200 rounded-xl p-6">
-                                <h4 className="font-semibold text-yellow-800 mb-3 flex items-center">
-                                    <AlertCircle className="w-5 h-5 mr-2" />
-                                    بيانات الاختبار
-                                </h4>
-                                <div className="text-sm text-yellow-700 space-y-2">
-                                    <p><strong>VISA:</strong> 4200000000000000</p>
-                                    <p><strong>MasterCard:</strong> 5454545454545454</p>
-                                    <p><strong>CVV:</strong> 123 | <strong>Expiry:</strong> 12/25</p>
-                                    <p><strong>Name:</strong> John Doe</p>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </motion.div>

@@ -125,14 +125,14 @@ const Hero = () => {
                     <p className="text-green-100 text-sm sm:text-base md:text-lg mb-4 sm:mb-6">متوفر على Android و iOS</p>
                     
                     {/* أزرار التحميل */}
-                    <div className="flex flex-col items-center sm:flex-row gap-1 sm:gap-2 justify-center mt-3 sm:mt-4">
+                    <div className="flex flex-col justify-center items-center gap-1 md:flex-row">
                       <a 
                         href="https://apps.apple.com/app/paypass/id1234567890" 
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="hover:opacity-80 transition-opacity"
                       >
-                        <img src={appStoreBadge} alt="Download on the App Store" className="h-5 sm:h-6 md:h-7" />
+                        <img src={appStoreBadge} alt="Download on the App Store" className="w-32" />
                       </a>
                       <a 
                         href="https://play.google.com/store/apps/details?id=com.paypass.app" 
@@ -140,7 +140,7 @@ const Hero = () => {
                         rel="noopener noreferrer"
                         className="hover:opacity-80 transition-opacity"
                       >
-                        <img src={googlePlayBadge} alt="Get it on Google Play" className="h-5 sm:h-6 md:h-7" />
+                        <img src={googlePlayBadge} alt="Get it on Google Play" className="w-32" />
                       </a>
                     </div>
                   </div>

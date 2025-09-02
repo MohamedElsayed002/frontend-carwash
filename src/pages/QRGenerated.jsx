@@ -105,7 +105,6 @@ const QRGenerated = () => {
         }
       });
 
-      console.log('Status response:', statusResponse);
 
       if (statusResponse.ok) {
         const statusData = await statusResponse.json();
@@ -205,28 +204,6 @@ const QRGenerated = () => {
     navigate('/branch-selection');
   };
 
-  // if (isGenerating) {
-  //   return (
-  //     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-white">
-  //       <div className="text-center">
-  //         <div className="animate-spin rounded-full h-16 w-16 border-b-2 border-green-500 mx-auto mb-6"></div>
-  //         <h2 className="text-2xl font-bold text-gray-800 mb-2">جاري إنشاء QR Code</h2>
-  //         <p className="text-gray-600">يرجى الانتظار...</p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
-  // if (!orderDetails || !packageDetails || !qrData) {
-  //   return (
-  //     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-white">
-  //       <div className="text-center">
-  //         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-500 mx-auto mb-4"></div>
-  //         <p className="text-gray-600">جاري التحميل...</p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-white">
@@ -315,7 +292,7 @@ const QRGenerated = () => {
                 <div className="grid grid-cols-2 gap-3">
                   <UnifiedButton
                     onClick={handleCopyQR}
-                    className="flex items-center justify-center gap-2"
+                    className="flex items-center justify-center gap-2 py-2 px-4"
                     variant="outline"
                   >
                     <Copy className="w-4 h-4" />
@@ -323,7 +300,7 @@ const QRGenerated = () => {
                   </UnifiedButton>
                   <UnifiedButton
                     onClick={handleDownloadQR}
-                    className="flex items-center justify-center gap-2"
+                    className="flex items-center justify-center gap-2 py-2 px-4"
                     variant="outline"
                   >
                     <Download className="w-4 h-4" />
@@ -432,7 +409,7 @@ const QRGenerated = () => {
           >
             <UnifiedButton
               onClick={handlePrintQR}
-              className="flex items-center justify-center gap-2"
+              className="flex items-center justify-center gap-2 py-2 px-4"
               variant="outline"
               size="lg"
             >
@@ -442,7 +419,7 @@ const QRGenerated = () => {
 
             <UnifiedButton
               onClick={handleContinueToBranch}
-              className="flex items-center justify-center gap-2"
+              className="flex items-center justify-center gap-2 py-2 px-4"
               size="lg"
             >
               اختيار الفرع

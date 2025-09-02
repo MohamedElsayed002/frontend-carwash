@@ -261,8 +261,24 @@ const BranchSelection = () => {
     // إشعار نجاح العملية
     alert(`تم اختيار الفرع بنجاح: ${selectedBranch.arabicName}`);
 
-    // الانتقال لصفحة طباعة الإيصال
-    navigate('/wash-printer');
+    console.log('selectedBranch', selectedBranch);
+    // إرسال بيانات الفرع المحدد إلى الخادم (مثال على POST)
+    fetch('https://carwash-backend-production.up.railway.app/api/user/set-location', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('frontend_token')}`
+      },
+      body: JSON.stringify(selectedBranch),
+    })
+      .then(response => response.json())
+      .then(data => {
+        console.log('response', data);
+        navigate('/wash-printer');
+      })
+      .catch(error => {
+        console.error('Error sending selected branch:', error);
+      });
   };
 
 

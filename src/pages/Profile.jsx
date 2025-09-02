@@ -41,6 +41,12 @@ const Profile = () => {
   const [qrCodeData, setQrCodeData] = useState(null);
   const [packageInfo, setPackageInfo] = useState(null);
   const [qrLoading, setQrLoading] = useState(false);
+
+  useEffect(() => {
+    if (!user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
   useEffect(() => {
     setIsVisible(true);
     window.scrollTo(0, 0);
@@ -243,7 +249,7 @@ const Profile = () => {
                   <Loader2 className="w-8 h-8 animate-spin text-green-600" />
                   <span className="ml-3 text-gray-600">جاري تحميل QR Code...</span>
                 </div>
-              ) : qrCodeData && packageInfo.washesLeft > 0 ? (
+              ) : user.isPaid && qrCodeData && packageInfo.washesLeft > 0 ? (
                 <div className="grid md:grid-cols-2 gap-6 items-center">
                   {/* QR Code */}
                   <div className="text-center">

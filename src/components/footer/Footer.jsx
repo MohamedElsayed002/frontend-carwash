@@ -10,6 +10,7 @@ import visaLogo from '../../assets/Visa.png';
 import mastercardLogo from '../../assets/mastercard.png';
 import applePayLogo from '../../assets/apple-pay.png';
 import madaLogo from '../../assets/Mada.png';
+import { MdEmail } from 'react-icons/md';
 
 const Footer = () => {
   return (
@@ -39,43 +40,6 @@ const Footer = () => {
             </div>
             <div className="mb-6 lg:mb-8">
               <p className="text-gray-300 text-sm sm:text-base lg:text-lg leading-relaxed max-w-md">تجربة غسيل السيارات الذكية مع PayPass. سهولة الاستخدام، خدمات متقدمة، وضمان الجودة.</p>
-            </div>
-            <div className="space-y-3 flex justify-center items-center lg:space-y-4 mb-6 lg:mb-8">
-              <a href="tel:+966568909183" className="flex items-center gap-3 lg:gap-4 p-3 lg:p-4 bg-gradient-to-r from-gray-700 to-gray-800 rounded-xl border border-gray-500 hover:from-gray-600 hover:to-gray-700 transition-all duration-300 group max-w-xs shadow-lg hover:shadow-xl">
-                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gray-500 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-phone w-4 h-4 lg:w-5 lg:h-5 text-white" aria-hidden="true">
-                    <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"></path>
-                  </svg>
-                </div>
-                <span className="text-white font-semibold text-sm lg:text-base" dir="ltr">+966 56 890 9183</span>
-              </a>
-              <a href="mailto:info@paypasss.com" className="flex items-center gap-3 lg:gap-4 p-3 lg:p-4 bg-gradient-to-r from-gray-700 to-gray-800 rounded-xl border border-gray-500 hover:from-gray-600 hover:to-gray-700 transition-all duration-300 group max-w-xs shadow-lg hover:shadow-xl">
-                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gray-500 rounded-lg flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-mail w-4 h-4 lg:w-5 lg:h-5 text-white" aria-hidden="true">
-                    <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
-                    <rect x="2" y="4" width="20" height="16" rx="2"></rect>
-                  </svg>
-                </div>
-                <span className="text-white font-semibold text-sm lg:text-base" dir="ltr">info@paypasss.com</span>
-              </a>
-              <div className="flex items-center gap-3 lg:gap-4 p-3 lg:p-4 bg-gradient-to-r from-gray-700 to-gray-800 rounded-xl border border-gray-500 max-w-xs shadow-lg">
-                <div className="w-8 h-8 lg:w-10 lg:h-10 bg-gray-500 rounded-lg flex items-center justify-center shadow-md">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-map-pin w-4 h-4 lg:w-5 lg:h-5 text-white" aria-hidden="true">
-                    <path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path>
-                    <circle cx="12" cy="10" r="3"></circle>
-                  </svg>
-                </div>
-                <span className="text-white font-semibold text-sm lg:text-base">الرياض، المملكة العربية السعودية</span>
-              </div>
-            </div>
-            <div className="flex justify-center items-center -mr-10 lg:justify-start gap-3 lg:gap-4 flex-wrap">
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="group w-10 h-10 lg:w-12 lg:h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl lg:rounded-2xl border-2 border-white/30 flex items-center justify-center hover:scale-110 hover:border-white/60 transition-all duration-300 shadow-lg hover:shadow-xl" title="Instagram">
-                <img
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/2048px-Instagram_logo_2016.svg.png"
-                  alt="Instagram"
-                  className="w-5 h-5 lg:w-6 lg:h-6 object-contain filter brightness-0 invert group-hover:scale-110 transition-transform duration-300"
-                />
-              </a>
             </div>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 lg:gap-8 order-1 lg:order-2">
@@ -166,7 +130,7 @@ const Footer = () => {
               <span className="hidden lg:inline-block text-gray-500">|</span>
               <Link to="/sitemap" className="text-gray-300 hover:text-white text-sm lg:text-base transition-colors underline">خريطة الموقع</Link>
             </div>
-            <div className="flex items-center gap-1 lg:gap-2">
+            <div className="mb-20 md:mb-0 flex flex-row items-center gap-1 lg:gap-2">
               <div className="bg-white rounded-md p-1 lg:p-1.5 shadow-md hover:shadow-lg transition-all duration-300 hover:scale-105">
                 <img alt="Visa" className="h-5 lg:h-6 w-auto object-contain" src={visaLogo} />
               </div>

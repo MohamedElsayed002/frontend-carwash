@@ -198,7 +198,7 @@ const WashPrinter = () => {
   };
 
   const handleContinue = () => {
-    navigate('/rating-and-tips');
+    navigate('/');
   };
 
   if (!customerInfo || !selectedBranch) {
@@ -281,57 +281,10 @@ const WashPrinter = () => {
                     </div>
                   </div>
 
-                  <div className="mt-6 text-center">
-                    <div className="w-24 h-24 border-2 border-green-300 mx-auto flex items-center justify-center text-green-600 text-xs bg-gray-50">
-                      <div className="text-center">
-                        <div className="text-lg mb-1">📱</div>
-                        <div className="text-xs">QR Code</div>
-                      </div>
-                    </div>
-                  </div>
                 </div>
               </div>
 
-              {/* Print Actions */}
-              <div className="space-y-3">
-                <UnifiedButton
-                  onClick={handlePrint}
-                  className="w-full"
-                  size="lg"
-                  disabled={isPrinting}
-                >
-                  {isPrinting ? (
-                    <>
-                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                      جاري الطباعة...
-                    </>
-                  ) : (
-                    <>
-                      <Printer className="w-5 h-5 mr-2" />
-                      طباعة الإيصال
-                    </>
-                  )}
-                </UnifiedButton>
 
-                <div className="grid grid-cols-2 gap-3">
-                  <UnifiedButton
-                    onClick={handleDownload}
-                    className="flex items-center justify-center gap-2"
-                    variant="outline"
-                  >
-                    <Download className="w-4 h-4" />
-                    تحميل
-                  </UnifiedButton>
-                  <UnifiedButton
-                    onClick={handleShare}
-                    className="flex items-center justify-center gap-2"
-                    variant="outline"
-                  >
-                    <Share2 className="w-4 h-4" />
-                    مشاركة
-                  </UnifiedButton>
-                </div>
-              </div>
             </motion.div>
 
             {/* Service Details */}
@@ -400,10 +353,10 @@ const WashPrinter = () => {
                 <div className="space-y-3 text-sm">
                   <div className="flex items-center gap-2">
                     <div className="w-6 h-6 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-xs font-bold">1</div>
-                    <span>اطبع الإيصال أو احفظه</span>
+                    <span>احتفظ بار كود للغسيل</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 bg-white bg-opacity-20 rounded-full flex items-center justify-center text-xs font-bold">2</div>
+                    <div className="w-6 h-6 bg-white bg-opacity-20 rounded-full flex items-center justify-center  text-xs font-bold">2</div>
                     <span>انتقل لصفحة التقييم والبقشيش</span>
                   </div>
                   <div className="flex items-center gap-2">
@@ -424,13 +377,15 @@ const WashPrinter = () => {
           >
             <UnifiedButton
               onClick={handleContinue}
-              className="flex items-center justify-center gap-2"
+              className="flex items-center justify-center gap-2 py-2 px-4 "
               size="lg"
             >
-              التقييم والبقشيش
+                العوده لصفحه الرئيسيه
               <ArrowRight className="w-5 h-5" />
             </UnifiedButton>
           </motion.div>
+          <p className='text-center text-sm mt-2'>يمكنك ايجاد بار كود في صفحتك الشخصيه</p>
+
         </motion.div>
       </div>
     </div>

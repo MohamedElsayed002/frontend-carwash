@@ -154,15 +154,15 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 md:-mt-64 md:-ml-96">
-      <div className="w-full max-w-6xl grid lg:grid-cols-2 gap-8 items-center">
+    <div className="grid place-items-center ">
+      <div className="w-4/5 md:w-3/5 mx-auto gap-8">
 
         {/* Login Form */}
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: isVisible ? 1 : 0, x: isVisible ? 0 : -50 }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-3xl shadow-2xl p-8 lg:p-12"
+          className="bg-white rounded-3xl shadow-sm p-8 lg:p-12"
         >
           <div className="text-center mb-8">
             <motion.div
@@ -246,25 +246,6 @@ const Login = () => {
               )}
             </div>
 
-            {/* Remember Me & Forgot Password */}
-            <div className="flex items-center justify-between">
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="checkbox"
-                  name="rememberMe"
-                  checked={formData.rememberMe}
-                  onChange={handleInputChange}
-                  className="w-4 h-4 text-green-600 border-gray-300 rounded focus:ring-green-500"
-                />
-                <span className="text-sm text-gray-700">تذكرني</span>
-              </label>
-              <Link
-                to="/forgot-password"
-                className="text-sm text-green-600 hover:text-green-700 font-medium transition-colors"
-              >
-                نسيت كلمة المرور؟
-              </Link>
-            </div>
 
             {/* Submit Button */}
             <button

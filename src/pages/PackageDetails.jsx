@@ -246,10 +246,6 @@ const PackageDetails = () => {
                     <div className="text-sm text-gray-600">عدد الغسلات</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">{packageData.duration}</div>
-                    <div className="text-sm text-gray-600">دقيقة للغسلة</div>
-                  </div>
-                  <div className="text-center">
                     <div className="text-2xl font-bold text-purple-600">{packageData.savings}</div>
                     <div className="text-sm text-gray-600">ريال توفير</div>
                   </div>

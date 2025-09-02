@@ -94,16 +94,23 @@ const FeedbackCard = ({ feedback, index }) => {
 
         {/* التقييم */}
         <div className="flex items-center gap-1 mb-3 sm:mb-4">
-          {Array.from({ length: 5 }, (_, i) => (
-            <Star
-              key={i}
-              className={`w-4 h-4 sm:w-5 sm:h-5 ${i < feedback.rating ? 'text-yellow-400' : 'text-gray-300'
-                }`}
-              style={{ fill: i < feedback.rating ? 'white' : 'white' }}
-            />
-          ))}
-          <span className="text-xs sm:text-sm text-gray-500 ml-2">({feedback.rating}/5)</span>
+          {/* Make stars flex row */}
+          <div className="flex flex-row gap-1">
+            {Array.from({ length: 5 }, (_, i) => (
+              <Star
+                key={i}
+                className={`w-4 h-4 sm:w-5 sm:h-5 ${i < feedback.rating ? "text-yellow-400" : "text-gray-300"
+                  }`}
+                style={{ fill: i < feedback.rating ? "white" : "white" }}
+              />
+            ))}
+          </div>
+
+          <span className="text-xs sm:text-sm text-gray-500 ml-2">
+            ({feedback.rating}/5)
+          </span>
         </div>
+
 
         {/* التعليق */}
         <div className="text-gray-700 text-sm sm:text-base leading-relaxed mb-3 sm:mb-4 group-hover:text-gray-800 transition-colors duration-300">
