@@ -75,7 +75,7 @@ const PackageDetails = () => {
           setError('لا توجد باقة نشطة');
         }
       } else {
-        setError(data.message || 'قم بتسجيل الدخول من فضلك اولا');
+        setError(data.message || 'عذرا. قم بتسجيل الدخول من فضلك');
       }
     } catch (error) {
       console.error('Error fetching user profile:', error);
@@ -115,10 +115,9 @@ const PackageDetails = () => {
       localStorage.setItem('reservationData', JSON.stringify(reservationData));
       localStorage.setItem('packageDetails', JSON.stringify(packageData));
       localStorage.setItem('orderDetails', JSON.stringify(reservationData));
-
       // Step 1: Prepare checkout with HyperPay
       const checkoutData = {
-        amount: 0.05,
+        amount: packageData.basePrice,
         currency: 'SAR',
         paymentMethod: selectedPaymentMethod,
         paymentType: selectedPaymentMethod === 'APPLEPAY' ? 'DB' : 'DB', // Both use DB for now, can be customized
@@ -166,7 +165,7 @@ const PackageDetails = () => {
           <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <Shield className="w-8 h-8 text-red-600" />
           </div>
-          <h2 className="text-xl font-bold text-gray-900 mb-2">حدث خطأ</h2>
+          <h2 className="text-xl font-bold text-gray-900 mb-2"></h2>
           <p className="text-gray-600 mb-6">{error}</p>
           <button
             onClick={() => navigate('/profile')}
@@ -199,7 +198,6 @@ const PackageDetails = () => {
     );
   }
 
-  console.log('packageData',packageData)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100">
@@ -366,10 +364,6 @@ const PackageDetails = () => {
                             {new Date(userData.updatedAt).toLocaleDateString('en-US')}
                           </span>
                         </div>
-                        <div className="flex justify-between items-center md:items-start">
-                          <span className="text-gray-600">عدد السيارات:</span>
-                          <span className="font-semibold text-gray-900">{userData.cars?.length || 0}</span>
-                        </div>
                       </div>
                     </div>
                   </div>
@@ -468,7 +462,7 @@ const PackageDetails = () => {
                       </div>
                       <div className="text-right">
                         <div className="font-semibold">بطاقة ائتمان</div>
-                        <div className="text-sm opacity-75 flex">
+                        <div className="text-sm opacity-75 flex flex-row">
                           <img src={visaImage} className='w-10 h-10 object-contain' />
                           <img src={mastercardImage} className='w-10 h-10 object-contain' />
                           <img src={madaImage} className='w-10 h-10 object-contain' />

@@ -66,6 +66,10 @@ const Profile = () => {
     showCvv: false
   });
 
+
+
+
+
   const tipAmounts = [5, 10, 15, 20, 25, 30];
 
   const paymentMethods = [
@@ -158,7 +162,6 @@ const Profile = () => {
         }
       });
 
-      console.log('QR response:', qrResponse);
       if (qrResponse.ok) {
         const qrData = await qrResponse.json();
         setQrCodeData(qrData.data.qrCode);
@@ -170,10 +173,9 @@ const Profile = () => {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
-        }
+        },
       });
 
-      console.log('Status response:', statusResponse);
 
       if (statusResponse.ok) {
         const statusData = await statusResponse.json();
@@ -231,8 +233,7 @@ const Profile = () => {
   const tabs = [
     { id: 'qr-code', label: 'QR Code', icon: <QrCode className="w-5 h-5" /> },
     { id: 'profile', label: 'الملف الشخصي', icon: <User className="w-5 h-5" /> },
-    { id: 'packages', label: 'الباقات', icon: <Package className="w-5 h-5" /> },
-    { id: 'feedback', label: 'التقييم والبقشيش', icon: <Star className="w-5 h-5" /> }
+    { id: 'feedback', label: 'التقييم و الإكراميه', icon: <Star className="w-5 h-5" /> }
   ];
 
   if (loading) {
@@ -247,8 +248,25 @@ const Profile = () => {
   }
 
 
-  // console.log('qrCodeData', qrCodeData);
-  console.log('userPackes', userPackages);
+  const handleFeedback = async () => {
+    console.log(ratingComment, branchRating, employeeRating)
+    const data = {
+      ratingComment,
+      branchRating,
+      employeeRating
+    }
+    const response = await fetch('https://carwash-backend-production.up.railway.app/api/feedbacks', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+
+    console.log(response)
+
+  }
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -307,7 +325,7 @@ const Profile = () => {
 
         {/* QR Code Tab */}
         {activeTab === 'qr-code' && (
-          <div className="max-w-2xl mx-auto">
+          <div className="max-w-2xl mx-auto mb-10">
             <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
               <div className="text-center mb-6">
                 <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-full text-sm font-bold mb-4">
@@ -425,7 +443,7 @@ const Profile = () => {
 
         {/* Profile Tab */}
         {activeTab === 'profile' && (
-          <div className="grid gap-8">
+          <div className="grid gap-8 mb-10">
             {/* User Info Card */}
             <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
               <div className="text-center mb-8">
@@ -483,110 +501,14 @@ const Profile = () => {
           </div>
         )}
 
-        {/* Packages Tab */}
-        {activeTab === 'packages' && user.isPaid && (
-          <div className="grid gap-8">
-            <div className="bg-white rounded-3xl shadow-2xl p-8 border border-gray-100">
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-full text-sm font-bold mb-4">
-                  <Package className="w-4 h-4" />
-                  باقاتي
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">الباقات المشتركة</h3>
-                <p className="text-gray-600">عرض جميع الباقات المشتركة وتفاصيلها</p>
-              </div>
-
-              {userPackages ? (
-                <div className="space-y-6">
-                  <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-2xl border border-green-200">
-                    <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-xl font-bold text-gray-900">{userPackages.name}</h4>
-                      <span className="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-semibold">
-                        نشطة
-                      </span>
-                    </div>
-
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <span className="text-gray-600">عدد الغسلات المتبقية:</span>
-                          <span className="font-semibold text-green-600">{userPackages.washes || 0}</span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span className="text-gray-600">حجم السيارة:</span>
-                          <span className="font-semibold text-gray-900">
-                            {userPackages.size === 'small' ? 'صغير' :
-                              userPackages.size === 'medium' ? 'متوسط' :
-                                userPackages.size === 'large' ? 'كبير' : userPackages.size}
-                          </span>
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <span className="text-gray-600">مدة الباقة:</span>
-                          <span className="font-semibold text-gray-900">{userPackages.duration} يوم</span>
-                        </div>
-                      </div>
-
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between">
-                          <span className="text-gray-600">السعر الأساسي:</span>
-                          <span className="font-semibold text-gray-900">{userPackages.basePrice} ريال</span>
-                        </div>
-                        {userPackages.originalPrice && (
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-600">السعر الأصلي:</span>
-                            <span className="font-semibold text-gray-500 line-through">{userPackages.originalPrice} ريال</span>
-                          </div>
-                        )}
-                        {userPackages.savings && (
-                          <div className="flex items-center justify-between">
-                            <span className="text-gray-600">التوفير:</span>
-                            <span className="font-semibold text-green-600">{userPackages.savings} ريال</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Features */}
-                    {userPackages.features && userPackages.features.length > 0 && (
-                      <div className="mt-6 pt-6 border-t border-green-200">
-                        <h5 className="font-semibold text-gray-900 mb-3">المميزات:</h5>
-                        <div className="grid md:grid-cols-2 gap-2">
-                          {userPackages.features.map((feature, index) => (
-                            <div key={index} className="flex items-center gap-2">
-                              <CheckCircle className="w-4 h-4 text-green-600" />
-                              <span className="text-gray-700">{feature}</span>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ) : (
-                <div className="text-center py-12">
-                  <Package className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                  <h4 className="text-xl font-semibold text-gray-900 mb-2">لا توجد باقات</h4>
-                  <p className="text-gray-600 mb-6">لم تقم بشراء أي باقات بعد</p>
-                  <button
-                    onClick={() => navigate('/packages')}
-                    className="bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-6 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center gap-2 mx-auto"
-                  >
-                    <Package className="w-5 h-5" />
-                    تصفح الباقات
-                  </button>
-                </div>
-              )}
-            </div>
-          </div>
-        )}
 
         {/* Feedback Tab */}
         {activeTab === 'feedback' && (
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto mb-10">
             {/* Header */}
             <div className="text-center mb-8">
               <h3 className="text-3xl font-bold text-gray-800 mb-2">
-                {currentStep === 'rating' ? 'تقييم الخدمة' : 'البقشيش'}
+                {currentStep === 'rating' ? 'تقييم الخدمة' : 'إكرامية'}
               </h3>
               <p className="text-gray-600">
                 {currentStep === 'rating'
@@ -598,7 +520,7 @@ const Profile = () => {
 
             {/* Progress Steps */}
             <div className="flex justify-center mb-8">
-              <div className="flex items-center space-x-4 rtl:space-x-reverse">
+              <div className="flex flex-row justify-center items-center space-x-4 rtl:space-x-reverse">
                 <div className={`flex items-center ${currentStep === 'rating' ? 'text-green-600' : 'text-gray-400'}`}>
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'rating' ? 'bg-green-100' : 'bg-gray-100'}`}>
                     <Star className="w-4 h-4" />
@@ -610,7 +532,7 @@ const Profile = () => {
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center ${currentStep === 'tips' ? 'bg-green-100' : 'bg-gray-100'}`}>
                     <Gift className="w-4 h-4" />
                   </div>
-                  <span className="mr-2 text-sm font-medium">البقشيش</span>
+                  <span className="mr-2 text-sm font-medium">إكرامية</span>
                 </div>
               </div>
             </div>
@@ -626,7 +548,7 @@ const Profile = () => {
                         <MapPin className="w-5 h-5 text-green-600" />
                         تقييم الفرع
                       </h3>
-                      <div className="flex justify-center space-x-2 rtl:space-x-reverse mb-4">
+                      <div className="flex flex-row justify-center space-x-2 rtl:space-x-reverse mb-4">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <button
                             key={star}
@@ -654,7 +576,7 @@ const Profile = () => {
                         <User className="w-5 h-5 text-blue-600" />
                         تقييم الموظف
                       </h3>
-                      <div className="flex justify-center space-x-2 rtl:space-x-reverse mb-4">
+                      <div className="flex flex-row justify-center space-x-2 rtl:space-x-reverse mb-4">
                         {[1, 2, 3, 4, 5].map((star) => (
                           <button
                             key={star}
@@ -691,10 +613,13 @@ const Profile = () => {
                     </div>
 
                     <button
-                      onClick={() => setCurrentStep('tips')}
+                      onClick={() => {
+                        handleFeedback()
+                        setCurrentStep('tips')
+                      }}
                       className="w-full bg-gradient-to-r from-green-500 to-emerald-600 text-white font-bold py-3 px-6 rounded-xl hover:from-green-600 hover:to-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
                     >
-                      التالي: البقشيش
+                      التالي: إكرامية
                       <ArrowRight className="w-5 h-5 mr-2" />
                     </button>
                   </div>
@@ -706,7 +631,7 @@ const Profile = () => {
                     <div className="mb-8">
                       <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
                         <Gift className="w-5 h-5 text-green-600" />
-                        اختر مبلغ البقشيش
+                        اختر مبلغ إكرامية
                       </h3>
                       <div className="grid grid-cols-3 gap-3 mb-4">
                         {tipAmounts.map((amount) => (
@@ -743,7 +668,7 @@ const Profile = () => {
                     {/* Tip Message */}
                     <div className="mb-8">
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        رسالة البقشيش (اختياري)
+                        رسالة إكرامية (اختياري)
                       </label>
                       <textarea
                         value={tipMessage}
@@ -866,7 +791,7 @@ const Profile = () => {
                           جاري المعالجة...
                         </>
                       ) : (
-                        'إرسال البقشيش'
+                        'إرسال إكرامية'
                       )}
                     </button>
                   </div>

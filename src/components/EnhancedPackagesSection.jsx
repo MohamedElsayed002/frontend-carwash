@@ -11,7 +11,7 @@ const EnhancedPackagesSection = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-
+  console.log(packages)
   // التمرير إلى أعلى الصفحة عند تحميل المكون
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -114,9 +114,8 @@ const EnhancedPackagesSection = () => {
       return;
     }
 
-    // إذا كانت باقة VIP، انتقل إلى المسار الخاص بها
+    // إذا كانت باقة VIP، لا تفعل شيئاً (معطلة)
     if (packageData.name.includes('VIP') || packageData.name.includes('vip')) {
-      navigate('/vip-package-details');
       return;
     }
 
@@ -242,9 +241,20 @@ const EnhancedPackagesSection = () => {
                 const isVIP = packageData.name.includes('VIP') || packageData.name.includes('vip');
 
                 return (
-                  <div key={packageData._id} className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 flex flex-col  items-center w-full h-full border border-gray-100 relative overflow-hidden">
+                  <div key={packageData._id} className={`group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-4 flex flex-col items-center w-full h-full border border-gray-100 relative overflow-hidden ${isVIP ? 'blur-[1px]' : ''}`}>
                     {/* خلفية زخرفية */}
                     <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-br from-green-100 to-transparent rounded-full -translate-y-10 translate-x-10 group-hover:scale-150 transition-all duration-500"></div>
+
+                    {/* Coming Soon Overlay for VIP Package */}
+                    {isVIP && (
+                      <div className="absolute inset-0 bg-black/20 backdrop-blur-sm rounded-3xl flex items-center justify-center z-30">
+                        <div className="bg-white/90 backdrop-blur-md rounded-2xl p-6 text-center shadow-2xl border border-white/20">
+                          <Clock className="w-12 h-12 text-orange-500 mx-auto mb-4" />
+                          <h3 className="text-xl font-bold text-gray-800 mb-2">قريباً</h3>
+                          <p className="text-gray-600 text-sm"> باقة VIP ستكون متاحة قريباً</p>
+                        </div>
+                      </div>
+                    )}
 
                     {/* شارة الأكثر طلباً أو VIP */}
                     {(isPopular || isVIP) && (
@@ -334,13 +344,9 @@ const EnhancedPackagesSection = () => {
                             <span>{packageData.freeWashes} غسلة مجانية</span>
                           </li>
                         )}
-                        <li className="flex items-start gap-3 flex-row">
+                                                <li className="flex items-start gap-3 flex-row">
                           <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" style={{ fill: 'white' }} />
-                          <span>صالح لمدة {packageData.duration} يوم</span>
-                        </li>
-                        <li className="flex items-start gap-3 flex-row">
-                          <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" style={{ fill: 'white' }} />
-                          <span>ضمان الجودة</span>
+                          <span>صالحيه باقه 30 يوم</span>
                         </li>
                       </ul>
                     </div>
@@ -349,9 +355,10 @@ const EnhancedPackagesSection = () => {
                       variant="gradient"
                       size="large"
                       onClick={() => handleCheckout(packageData)}
-                      className="w-full mt-auto"
+                      className={`w-full mt-auto ${isVIP ? 'opacity-50 cursor-not-allowed' : ''}`}
+                      disabled={isVIP}
                     >
-                      احجز الآن
+                      {isVIP ? 'قريباً' : 'احجز الآن'}
                     </UnifiedButton>
                   </div>
                 );

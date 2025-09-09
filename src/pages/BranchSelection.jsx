@@ -55,8 +55,8 @@ const BranchSelection = () => {
   const branches = [
     {
       id: 1,
-      name: 'مغسلة النقاء المطلق',
-      arabicName: 'مغسلة النقاء المطلق',
+      name: 'مغسلة اللمسة الناعمة الاوتوماتيكية',
+      arabicName: 'مغسلة اللمسة الناعمة الاوتوماتيكية',
       address: 'King Fahd Road, Al Olaya, Riyadh',
       arabicAddress: 'طريق الملك فهد، العليا، الرياض',
       phone: '+966 11 488 1234',
@@ -75,8 +75,8 @@ const BranchSelection = () => {
     },
     {
       id: 2,
-      name: 'مغسلة اللمسة الناعمة',
-      arabicName: 'مغسلة اللمسة الناعمة',
+      name: 'رجل الفقاعات',
+      arabicName: 'رجل الفقاعات',
       address: 'King Abdullah Road, Al Malaz, Riyadh',
       arabicAddress: 'طريق الملك عبدالله، الملز، الرياض',
       phone: '+966 11 488 5678',
@@ -115,8 +115,8 @@ const BranchSelection = () => {
     },
     {
       id: 4,
-      name: 'مغسلة البريق الذهبي',
-      arabicName: 'مغسلة البريق الذهبي',
+      name: 'مغاسل أناقة الموتر الاوتوماتيكيه للسيارات',
+      arabicName: 'مغاسل أناقة الموتر الاوتوماتيكيه للسيارات',
       address: 'King Khalid Road, Al Sulaimaniyah, Riyadh',
       arabicAddress: 'طريق الملك خالد، السليمانية، الرياض',
       phone: '+966 11 488 3456',
@@ -132,46 +132,6 @@ const BranchSelection = () => {
       coordinates: { lat: 24.7136, lng: 46.6753 },
       capacity: '18 سيارة/ساعة',
       specialties: ['سيارات عائلية', 'سيارات تجارية', 'سيارات كلاسيكية']
-    },
-    {
-      id: 5,
-      name: 'مغسلة النظافة الذكية',
-      arabicName: 'مغسلة النظافة الذكية',
-      address: 'King Faisal Road, Al Sahafah, Riyadh',
-      arabicAddress: 'طريق الملك فيصل، الصحافة، الرياض',
-      phone: '+966 11 488 7890',
-      rating: 4.5,
-      reviews: 900,
-      distance: '5.1 كم',
-      workingHours: '6:30 ص - 11:30 م',
-      isOpen: true,
-      services: ['غسيل خارجي شامل', 'غسيل داخلي شامل', 'تلميع احترافي', 'معطر فاخر', 'خدمة سريعة'],
-      mapUrl: 'https://maps.app.goo.gl/example5',
-      features: ['معدات حديثة', 'خدمة سريعة', 'أسعار منافسة', 'موقف مجاني'],
-      image: alnmaImage,
-      coordinates: { lat: 24.7136, lng: 46.6753 },
-      capacity: '22 سيارة/ساعة',
-      specialties: ['سيارات عائلية', 'سيارات تجارية', 'سيارات رياضية']
-    },
-    {
-      id: 6,
-      name: 'مغسلة اللمعان المثالي',
-      arabicName: 'مغسلة اللمعان المثالي',
-      address: 'King Abdulaziz Road, Al Rawdah, Riyadh',
-      arabicAddress: 'طريق الملك عبدالعزيز، الروضة، الرياض',
-      phone: '+966 11 488 2345',
-      rating: 4.7,
-      reviews: 1300,
-      distance: '6.3 كم',
-      workingHours: '7:00 ص - 10:00 م',
-      isOpen: true,
-      services: ['غسيل خارجي شامل', 'غسيل داخلي شامل', 'تلميع احترافي', 'معطر فاخر', 'خدمة VIP'],
-      mapUrl: 'https://maps.app.goo.gl/example6',
-      features: ['موقع مركزي', 'خدمة سريعة', 'أسعار منافسة', 'خدمة منزلية'],
-      image: codImage,
-      coordinates: { lat: 24.7136, lng: 46.6753 },
-      capacity: '16 سيارة/ساعة',
-      specialties: ['سيارات فاخرة', 'سيارات رياضية', 'سيارات كلاسيكية']
     }
   ];
 
